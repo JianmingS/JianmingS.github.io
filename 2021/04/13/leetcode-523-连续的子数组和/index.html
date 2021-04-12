@@ -25,18 +25,23 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"jianmings.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.3.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://jianmings.github.io/tags/index.html">
+<meta name="description" content="解题思路定义pre[i]下标[0, i]的子数组和 求解方法下标[j, i]的子数组和为k的倍数 (j&lt;i)&lt;&#x3D;&gt;pre[i]-pre[j-1] &#x3D;&#x3D; nk&lt;&#x3D;&#x3D;&gt;pre[i] &#x3D;&#x3D; n1k + rem1pre[j] &#x3D;&#x3D; n2*k + rem2rem1 &#x3D;&#x3D; rem2&lt;&#x3D;&#x3D;&gt;通过计算第i个元素前，是否有pre%k等于pre[i]%k，即说明存在以i结尾的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode 523. 连续的子数组和">
+<meta property="og:url" content="https://jianmings.github.io/2021/04/13/leetcode-523-%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/index.html">
 <meta property="og:site_name" content="Jianming Shi">
+<meta property="og:description" content="解题思路定义pre[i]下标[0, i]的子数组和 求解方法下标[j, i]的子数组和为k的倍数 (j&lt;i)&lt;&#x3D;&gt;pre[i]-pre[j-1] &#x3D;&#x3D; nk&lt;&#x3D;&#x3D;&gt;pre[i] &#x3D;&#x3D; n1k + rem1pre[j] &#x3D;&#x3D; n2*k + rem2rem1 &#x3D;&#x3D; rem2&lt;&#x3D;&#x3D;&gt;通过计算第i个元素前，是否有pre%k等于pre[i]%k，即说明存在以i结尾的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-04T16:43:30.000Z">
-<meta property="article:modified_time" content="2021-04-04T16:43:47.733Z">
+<meta property="article:published_time" content="2021-04-12T16:17:25.000Z">
+<meta property="article:modified_time" content="2021-04-12T16:28:04.105Z">
 <meta property="article:author" content="Jianming Shi">
+<meta property="article:tag" content="【算法】前缀和">
+<meta property="article:tag" content="【算法】数学">
+<meta property="article:tag" content="【算法】取余">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://jianmings.github.io/tags/">
+<link rel="canonical" href="https://jianmings.github.io/2021/04/13/leetcode-523-%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/">
 
 
 <script class="page-configurations">
@@ -44,12 +49,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>tags | Jianming Shi
-</title>
+<title>leetcode 523. 连续的子数组和 | Jianming Shi</title>
   
 
 
@@ -173,7 +177,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -186,6 +190,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89pre-i"><span class="nav-number">1.1.</span> <span class="nav-text">定义pre[i]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">求解方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.3.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">空间复杂度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -239,43 +244,107 @@
 </noscript>
 
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/04/13/leetcode-523-%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/">
 
-    
-    
-    
-    <div class="post-block" lang="zh-CN"><header class="post-header">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jianming Shi">
+      <meta itemprop="description" content="">
+    </span>
 
-<h1 class="post-title" itemprop="name headline">tags
-</h1>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jianming Shi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leetcode 523. 连续的子数组和
+        </h1>
 
-<div class="post-meta-container">
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-13 00:17:25 / 修改时间：00:28:04" itemprop="dateCreated datePublished" datetime="2021-04-13T00:17:25+08:00">2021-04-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/04/13/leetcode-523-%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 523. 连续的子数组和" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
 </div>
 
-</header>
+        </div>
+      </header>
 
-      
-      
-      <div class="post-body"><div class="tag-cloud">
-  <div class="tag-cloud-title">
-    目前共计 10 个标签
-  </div>
-  <div class="tag-cloud-tags">
-    <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 12px;" class="tag-cloud-0">【算法】二叉树</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 30px;" class="tag-cloud-10">【算法】前缀和</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 12px;" class="tag-cloud-0">【算法】动态规划</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 12px;" class="tag-cloud-0">【算法】双指针</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%8F%96%E4%BD%99/" style="font-size: 12px;" class="tag-cloud-0">【算法】取余</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 30px;" class="tag-cloud-10">【算法】字符串</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E5%AD%A6/" style="font-size: 12px;" class="tag-cloud-0">【算法】数学</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84/" style="font-size: 30px;" class="tag-cloud-10">【算法】数组</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 12px;" class="tag-cloud-0">【算法】滑动窗口</a> <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E9%80%92%E5%BD%92/" style="font-size: 12px;" class="tag-cloud-0">【算法】递归</a>
-  </div>
-</div>
-
-      </div>
-      
-      
-      
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><h2 id="定义pre-i"><a href="#定义pre-i" class="headerlink" title="定义pre[i]"></a>定义pre[i]</h2><p>下标[0, i]的子数组和</p>
+<h2 id="求解方法"><a href="#求解方法" class="headerlink" title="求解方法"></a>求解方法</h2><p>下标[j, i]的子数组和为k的倍数 (j&lt;i)<br>&lt;=&gt;<br>pre[i]-pre[j-1] == n<em>k<br>&lt;==&gt;<br>pre[i] == n1</em>k + rem1<br>pre[j] == n2*k + rem2<br>rem1 == rem2<br>&lt;==&gt;<br>通过计算第i个元素前，是否有pre%k等于pre[i]%k，即说明存在以i结尾的子数组和为k的倍数</p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>O(n)</p>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>O(min(n,k))</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkSubarraySum</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        rem_to_index = &#123;<span class="number">0</span>: -<span class="number">1</span>&#125;  <span class="comment"># 确保[0, i]子数组和是k的倍数时，返回true（i&gt;=2）</span></span><br><span class="line">        pre_sum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, num <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            pre_sum += num</span><br><span class="line">            rem = pre_sum%k</span><br><span class="line">            equal_rem_pos = rem_to_index.get(rem)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> equal_rem_pos <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                rem_to_index[rem] = i</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> i - equal_rem_pos &gt;= <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
     
     
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag"># 【算法】前缀和</a>
+              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E5%AD%A6/" rel="tag"># 【算法】数学</a>
+              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%8F%96%E4%BD%99/" rel="tag"># 【算法】取余</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/11/leetcode-560-%E5%92%8C%E4%B8%BAK%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" rel="prev" title="leetcode 560. 和为K的子数组">
+                  <i class="fa fa-chevron-left"></i> leetcode 560. 和为K的子数组
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
 
 
     <div class="comments gitalk-container"></div>
@@ -443,7 +512,7 @@ NexT.utils.loadComments('.gitalk-container', () => {
       repo        : 'JianmingS.github.io',
       owner       : 'JianmingS',
       admin       : ['JianmingS'],
-      id          : 'f47af1d1eda4d807b02bba32be15120b',
+      id          : '020a63d7beebb0d21cf4eec04ed6185a',
       proxy       : 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         language: '',
       distractionFreeMode: true
