@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jianmings.github.io/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/</loc>
+    <loc>https://jianmings.github.io/2021/05/23/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2021-05-23</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jianmings.github.io/static/20210523/test.json</loc>
+    <loc>https://jianmings.github.io/2021/05/23/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/test/</loc>
     
     <lastmod>2021-05-23</lastmod>
     
@@ -234,24 +234,10 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://jianmings.github.io/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2021-05-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   
   <url>
     <loc>https://jianmings.github.io/categories/leetcode/</loc>
-    <lastmod>2021-05-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jianmings.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2021-05-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
