@@ -28,18 +28,18 @@
 <meta name="description" content="问题一个对象的创建，依赖于多个不同的工厂方法，如何使这个对象的创建更容易呢？ 工厂方法将多个工厂方法组合在一起，作为一个抽象工厂 Demo背景&amp;&amp;需求根据用户年龄，决定玩儿童游戏（青蛙吃虫子），还是成人游戏（巫师对抗怪物） 代码123456789101112131415161718192021222324252627282930313233343536373839404142434">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【工厂模式】抽象工厂">
-<meta property="og:url" content="https://jianmings.github.io/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/index.html">
+<meta property="og:url" content="https://jianmings.github.io/2021/05/30/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/index.html">
 <meta property="og:site_name" content="Jianming Shi">
 <meta property="og:description" content="问题一个对象的创建，依赖于多个不同的工厂方法，如何使这个对象的创建更容易呢？ 工厂方法将多个工厂方法组合在一起，作为一个抽象工厂 Demo背景&amp;&amp;需求根据用户年龄，决定玩儿童游戏（青蛙吃虫子），还是成人游戏（巫师对抗怪物） 代码123456789101112131415161718192021222324252627282930313233343536373839404142434">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-21T15:47:37.000Z">
-<meta property="article:modified_time" content="2021-05-29T20:48:47.714Z">
+<meta property="article:published_time" content="2021-05-29T20:47:37.000Z">
+<meta property="article:modified_time" content="2021-05-29T20:49:39.848Z">
 <meta property="article:author" content="Jianming Shi">
 <meta property="article:tag" content="工厂模式">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://jianmings.github.io/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/">
+<link rel="canonical" href="https://jianmings.github.io/2021/05/30/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/">
 
 
 <script class="page-configurations">
@@ -253,7 +253,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/05/30/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -276,16 +276,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-05-21 23:47:37" itemprop="dateCreated datePublished" datetime="2021-05-21T23:47:37+08:00">2021-05-21</time>
+      <time title="创建时间：2021-05-30 04:47:37 / 修改时间：04:49:39" itemprop="dateCreated datePublished" datetime="2021-05-30T04:47:37+08:00">2021-05-30</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-30 04:48:47" itemprop="dateModified" datetime="2021-05-30T04:48:47+08:00">2021-05-30</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -297,7 +291,7 @@
     </span>
 
   
-    <span id="/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/" class="post-meta-item leancloud_visitors" data-flag-title="【工厂模式】抽象工厂" title="阅读次数">
+    <span id="/2021/05/30/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/" class="post-meta-item leancloud_visitors" data-flag-title="【工厂模式】抽象工厂" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -340,14 +334,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/05/09/leetcode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" rel="prev" title="leetcode 15. 三数之和">
-                  <i class="fa fa-chevron-left"></i> leetcode 15. 三数之和
+                <a href="/2021/05/29/leetcode-297-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="prev" title="leetcode 297. 二叉树的序列化与反序列化">
+                  <i class="fa fa-chevron-left"></i> leetcode 297. 二叉树的序列化与反序列化
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" rel="next" title="【工厂模式】工厂方法">
-                  【工厂模式】工厂方法 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -524,7 +515,7 @@ NexT.utils.loadComments('.gitalk-container', () => {
       repo        : 'JianmingS.github.io',
       owner       : 'JianmingS',
       admin       : ['JianmingS'],
-      id          : 'c576eeeea5bd6b8ec08dce153523826b',
+      id          : '43c90b66ba80660cb9732096c566b16c',
       proxy       : 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         language: '',
       distractionFreeMode: true
