@@ -372,7 +372,7 @@
       </tags>
   </entry>
   <entry>
-    <title>322. 零钱兑换</title>
+    <title>leetcode 322. 零钱兑换</title>
     <url>/2021/06/20/322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2/</url>
     <content><![CDATA[<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>状态：<br>dp[i] = 组成金额i需要的最小金币数</p>
 <p>方程：<br>dp[i] = min(dp[i - coin[x]]) + 1<br>0&lt;=x&lt;len(coins)</p>
