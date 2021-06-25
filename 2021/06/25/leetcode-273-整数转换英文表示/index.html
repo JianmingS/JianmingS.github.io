@@ -25,21 +25,22 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"jianmings.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.3.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="解题思路对于一个长度为N的数组，缺失的第一个正数在[1, N+1]中（若[1,N]在数组都出现了，那么答案是N+1），否则答案是[1,N]中没有出现的最小正数 代码123456789101112131415161718class Solution:    def firstMissingPositive(self, nums: List[int]) -&gt; int:        nums_l">
+<meta name="description" content="解题思路模拟整数转换为英文 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687class Solution:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode 41. 缺失的第一个正数">
-<meta property="og:url" content="https://jianmings.github.io/2021/04/17/leetcode-41-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/index.html">
+<meta property="og:title" content="leetcode 273. 整数转换英文表示">
+<meta property="og:url" content="https://jianmings.github.io/2021/06/25/leetcode-273-%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E8%8B%B1%E6%96%87%E8%A1%A8%E7%A4%BA/index.html">
 <meta property="og:site_name" content="Jianming Shi">
-<meta property="og:description" content="解题思路对于一个长度为N的数组，缺失的第一个正数在[1, N+1]中（若[1,N]在数组都出现了，那么答案是N+1），否则答案是[1,N]中没有出现的最小正数 代码123456789101112131415161718class Solution:    def firstMissingPositive(self, nums: List[int]) -&gt; int:        nums_l">
+<meta property="og:description" content="解题思路模拟整数转换为英文 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687class Solution:">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-16T16:14:19.000Z">
-<meta property="article:modified_time" content="2021-04-18T14:53:59.393Z">
+<meta property="article:published_time" content="2021-06-25T14:20:41.000Z">
+<meta property="article:modified_time" content="2021-06-25T14:24:59.584Z">
 <meta property="article:author" content="Jianming Shi">
-<meta property="article:tag" content="【算法】数组">
+<meta property="article:tag" content="【算法】字符串">
+<meta property="article:tag" content="【算法】数学">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://jianmings.github.io/2021/04/17/leetcode-41-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/">
+<link rel="canonical" href="https://jianmings.github.io/2021/06/25/leetcode-273-%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E8%8B%B1%E6%96%87%E8%A1%A8%E7%A4%BA/">
 
 
 <script class="page-configurations">
@@ -51,7 +52,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>leetcode 41. 缺失的第一个正数 | Jianming Shi</title>
+<title>leetcode 273. 整数转换英文表示 | Jianming Shi</title>
   
 
 
@@ -253,7 +254,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/04/17/leetcode-41-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/06/25/leetcode-273-%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E8%8B%B1%E6%96%87%E8%A1%A8%E7%A4%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -266,7 +267,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode 41. 缺失的第一个正数
+          leetcode 273. 整数转换英文表示
         </h1>
 
         <div class="post-meta-container">
@@ -276,16 +277,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-04-17 00:14:19" itemprop="dateCreated datePublished" datetime="2021-04-17T00:14:19+08:00">2021-04-17</time>
+      <time title="创建时间：2021-06-25 22:20:41 / 修改时间：22:24:59" itemprop="dateCreated datePublished" datetime="2021-06-25T22:20:41+08:00">2021-06-25</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-18 22:53:59" itemprop="dateModified" datetime="2021-04-18T22:53:59+08:00">2021-04-18</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -297,7 +292,7 @@
     </span>
 
   
-    <span id="/2021/04/17/leetcode-41-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 41. 缺失的第一个正数" title="阅读次数">
+    <span id="/2021/06/25/leetcode-273-%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E8%8B%B1%E6%96%87%E8%A1%A8%E7%A4%BA/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 273. 整数转换英文表示" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -313,8 +308,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>对于一个长度为N的数组，缺失的第一个正数在[1, N+1]中（若[1,N]在数组都出现了，那么答案是N+1），否则答案是[1,N]中没有出现的最小正数</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">firstMissingPositive</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        nums_len = <span class="built_in">len</span>(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, num <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            <span class="keyword">if</span> num &lt;= <span class="number">0</span>:</span><br><span class="line">                nums[i] = nums_len + <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            num = <span class="built_in">abs</span>(num)</span><br><span class="line">            <span class="keyword">if</span> num &lt;= nums_len:</span><br><span class="line">                nums[num-<span class="number">1</span>] = -<span class="built_in">abs</span>(nums[num-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, num <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            <span class="keyword">if</span> num &gt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> i + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums_len + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+        <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>模拟整数转换为英文</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numberToWords</span>(<span class="params">self, num: <span class="built_in">int</span></span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;Zero&#x27;</span></span><br><span class="line">        </span><br><span class="line">        result = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">        billion = num // <span class="number">1000000000</span></span><br><span class="line">        million = (num % <span class="number">1000000000</span>) // <span class="number">1000000</span></span><br><span class="line">        thousand = (num % <span class="number">1000000</span>) // <span class="number">1000</span></span><br><span class="line">        rest = num % <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> billion:</span><br><span class="line">            result += self.three(billion) + <span class="string">&#x27; Billion&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> million:</span><br><span class="line">            result += result <span class="keyword">and</span> <span class="string">&#x27; &#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">            result += self.three(million) + <span class="string">&#x27; Million&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> thousand:</span><br><span class="line">            result += result <span class="keyword">and</span> <span class="string">&#x27; &#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">            result += self.three(thousand) + <span class="string">&#x27; Thousand&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> rest:</span><br><span class="line">            result += result <span class="keyword">and</span> <span class="string">&#x27; &#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">            result += self.three(rest)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">three</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        hundred = num // <span class="number">100</span></span><br><span class="line">        rest = num % <span class="number">100</span></span><br><span class="line">        <span class="keyword">if</span> hundred <span class="keyword">and</span> rest:</span><br><span class="line">            <span class="keyword">return</span> self.one(hundred) + <span class="string">&#x27; Hundred &#x27;</span> + self.two(rest)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hundred <span class="keyword">and</span> rest:</span><br><span class="line">            <span class="keyword">return</span> self.two(rest)</span><br><span class="line">        <span class="keyword">if</span> hundred <span class="keyword">and</span> <span class="keyword">not</span> rest:</span><br><span class="line">            <span class="keyword">return</span> self.one(hundred) + <span class="string">&#x27; Hundred&#x27;</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">one</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        switcher = &#123;</span><br><span class="line">            <span class="number">1</span>: <span class="string">&#x27;One&#x27;</span>,</span><br><span class="line">            <span class="number">2</span>: <span class="string">&#x27;Two&#x27;</span>,</span><br><span class="line">            <span class="number">3</span>: <span class="string">&#x27;Three&#x27;</span>,</span><br><span class="line">            <span class="number">4</span>: <span class="string">&#x27;Four&#x27;</span>,</span><br><span class="line">            <span class="number">5</span>: <span class="string">&#x27;Five&#x27;</span>,</span><br><span class="line">            <span class="number">6</span>: <span class="string">&#x27;Six&#x27;</span>,</span><br><span class="line">            <span class="number">7</span>: <span class="string">&#x27;Seven&#x27;</span>,</span><br><span class="line">            <span class="number">8</span>: <span class="string">&#x27;Eight&#x27;</span>,</span><br><span class="line">            <span class="number">9</span>: <span class="string">&#x27;Nine&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> switcher.get(num)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">two</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        <span class="keyword">if</span> num &lt; <span class="number">10</span>:</span><br><span class="line">            <span class="keyword">return</span> self.one(num)</span><br><span class="line">        <span class="keyword">if</span> num &lt; <span class="number">20</span>:</span><br><span class="line">            <span class="keyword">return</span> self.two_less_20(num)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            tenner = num // <span class="number">10</span></span><br><span class="line">            rest = num % <span class="number">10</span></span><br><span class="line">            <span class="keyword">return</span> rest <span class="keyword">and</span> self.ten(tenner) + <span class="string">&#x27; &#x27;</span> + self.one(rest) <span class="keyword">or</span> self.ten(tenner)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">two_less_20</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        switcher = &#123;</span><br><span class="line">            <span class="number">10</span>: <span class="string">&#x27;Ten&#x27;</span>,</span><br><span class="line">            <span class="number">11</span>: <span class="string">&#x27;Eleven&#x27;</span>,</span><br><span class="line">            <span class="number">12</span>: <span class="string">&#x27;Twelve&#x27;</span>,</span><br><span class="line">            <span class="number">13</span>: <span class="string">&#x27;Thirteen&#x27;</span>,</span><br><span class="line">            <span class="number">14</span>: <span class="string">&#x27;Fourteen&#x27;</span>,</span><br><span class="line">            <span class="number">15</span>: <span class="string">&#x27;Fifteen&#x27;</span>,</span><br><span class="line">            <span class="number">16</span>: <span class="string">&#x27;Sixteen&#x27;</span>,</span><br><span class="line">            <span class="number">17</span>: <span class="string">&#x27;Seventeen&#x27;</span>,</span><br><span class="line">            <span class="number">18</span>: <span class="string">&#x27;Eighteen&#x27;</span>,</span><br><span class="line">            <span class="number">19</span>: <span class="string">&#x27;Nineteen&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> switcher.get(num)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ten</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        switcher = &#123;</span><br><span class="line">            <span class="number">2</span>: <span class="string">&#x27;Twenty&#x27;</span>,</span><br><span class="line">            <span class="number">3</span>: <span class="string">&#x27;Thirty&#x27;</span>,</span><br><span class="line">            <span class="number">4</span>: <span class="string">&#x27;Forty&#x27;</span>,</span><br><span class="line">            <span class="number">5</span>: <span class="string">&#x27;Fifty&#x27;</span>,</span><br><span class="line">            <span class="number">6</span>: <span class="string">&#x27;Sixty&#x27;</span>,</span><br><span class="line">            <span class="number">7</span>: <span class="string">&#x27;Seventy&#x27;</span>,</span><br><span class="line">            <span class="number">8</span>: <span class="string">&#x27;Eighty&#x27;</span>,</span><br><span class="line">            <span class="number">9</span>: <span class="string">&#x27;Ninety&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> switcher.get(num)</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -323,21 +319,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84/" rel="tag"># 【算法】数组</a>
+              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag"># 【算法】字符串</a>
+              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E5%AD%A6/" rel="tag"># 【算法】数学</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/04/15/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/" rel="prev" title="leetcode 121. 买卖股票的最佳时机">
-                  <i class="fa fa-chevron-left"></i> leetcode 121. 买卖股票的最佳时机
+                <a href="/2021/06/23/leetcode-103-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="prev" title="leetcode 103. 二叉树的锯齿形层序遍历">
+                  <i class="fa fa-chevron-left"></i> leetcode 103. 二叉树的锯齿形层序遍历
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/04/22/leetcode-54-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/" rel="next" title="leetcode 54. 螺旋矩阵">
-                  leetcode 54. 螺旋矩阵 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -514,7 +508,7 @@ NexT.utils.loadComments('.gitalk-container', () => {
       repo        : 'JianmingS.github.io',
       owner       : 'JianmingS',
       admin       : ['JianmingS'],
-      id          : 'de0691747d2f80f91696549108f3362f',
+      id          : '7a970a760614aab14f3e470e4ec0f5f9',
       proxy       : 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         language: '',
       distractionFreeMode: true
