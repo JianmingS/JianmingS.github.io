@@ -25,21 +25,22 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"jianmings.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.3.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="解题思路方法同 leetcode 560. 和为K的子数组 代码123456789101112131415class Solution:    def maxSubArrayLen(self, nums: List[int], k: int) -&gt; int:        ret &#x3D; 0        pre_sum_to_index &#x3D; &amp;#123;0: -1&amp;#125;        p">
+<meta name="description" content="解题思路解法1超大数组预先开出max(key)的空间，确保每个key都有一个单独的索引 解法2拉链数组超大数组会占用的空间太大，可以将输入的数据分桶，每个桶的数据动态增长 分桶方法：推荐使用质数取余进行分桶 使用质数取余分桶的原因：只要输入的数据足够随机，是否用质数取模无所谓的；但是实际输入的数据一般是有规律的，如果使用合数取余，当合数和数据存在非1的约数，那数据只会被分桶到约数的倍数，违背了尽量">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode 325. 和等于 k 的最长子数组长度">
-<meta property="og:url" content="https://jianmings.github.io/2021/04/14/leetcode-325-%E5%92%8C%E7%AD%89%E4%BA%8E-k-%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/index.html">
+<meta property="og:title" content="leetcode 706. 设计哈希映射">
+<meta property="og:url" content="https://jianmings.github.io/2021/07/02/leetcode-706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/index.html">
 <meta property="og:site_name" content="Jianming Shi">
-<meta property="og:description" content="解题思路方法同 leetcode 560. 和为K的子数组 代码123456789101112131415class Solution:    def maxSubArrayLen(self, nums: List[int], k: int) -&gt; int:        ret &#x3D; 0        pre_sum_to_index &#x3D; &amp;#123;0: -1&amp;#125;        p">
+<meta property="og:description" content="解题思路解法1超大数组预先开出max(key)的空间，确保每个key都有一个单独的索引 解法2拉链数组超大数组会占用的空间太大，可以将输入的数据分桶，每个桶的数据动态增长 分桶方法：推荐使用质数取余进行分桶 使用质数取余分桶的原因：只要输入的数据足够随机，是否用质数取模无所谓的；但是实际输入的数据一般是有规律的，如果使用合数取余，当合数和数据存在非1的约数，那数据只会被分桶到约数的倍数，违背了尽量">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-14T15:00:44.000Z">
-<meta property="article:modified_time" content="2021-04-15T15:49:35.892Z">
+<meta property="article:published_time" content="2021-07-02T13:58:17.000Z">
+<meta property="article:modified_time" content="2021-07-02T16:04:07.648Z">
 <meta property="article:author" content="Jianming Shi">
-<meta property="article:tag" content="【算法】前缀和">
+<meta property="article:tag" content="【算法】数学">
+<meta property="article:tag" content="【算法】哈希">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://jianmings.github.io/2021/04/14/leetcode-325-%E5%92%8C%E7%AD%89%E4%BA%8E-k-%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/">
+<link rel="canonical" href="https://jianmings.github.io/2021/07/02/leetcode-706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/">
 
 
 <script class="page-configurations">
@@ -51,7 +52,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>leetcode 325. 和等于 k 的最长子数组长度 | Jianming Shi</title>
+<title>leetcode 706. 设计哈希映射 | Jianming Shi</title>
   
 
 
@@ -188,7 +189,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%951"><span class="nav-number">1.1.</span> <span class="nav-text">解法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%952"><span class="nav-number">1.2.</span> <span class="nav-text">解法2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%951-1"><span class="nav-number">2.1.</span> <span class="nav-text">解法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%952-1"><span class="nav-number">2.2.</span> <span class="nav-text">解法2</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -253,7 +254,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/04/14/leetcode-325-%E5%92%8C%E7%AD%89%E4%BA%8E-k-%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/07/02/leetcode-706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -266,7 +267,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode 325. 和等于 k 的最长子数组长度
+          leetcode 706. 设计哈希映射
         </h1>
 
         <div class="post-meta-container">
@@ -277,14 +278,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-04-14 23:00:44" itemprop="dateCreated datePublished" datetime="2021-04-14T23:00:44+08:00">2021-04-14</time>
+      <time title="创建时间：2021-07-02 21:58:17" itemprop="dateCreated datePublished" datetime="2021-07-02T21:58:17+08:00">2021-07-02</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-15 23:49:35" itemprop="dateModified" datetime="2021-04-15T23:49:35+08:00">2021-04-15</time>
+        <time title="修改时间：2021-07-03 00:04:07" itemprop="dateModified" datetime="2021-07-03T00:04:07+08:00">2021-07-03</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -297,7 +298,7 @@
     </span>
 
   
-    <span id="/2021/04/14/leetcode-325-%E5%92%8C%E7%AD%89%E4%BA%8E-k-%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 325. 和等于 k 的最长子数组长度" title="阅读次数">
+    <span id="/2021/07/02/leetcode-706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 706. 设计哈希映射" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -313,11 +314,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>方法同 <a href="https://jianmings.github.io/2021/04/11/leetcode-560-%E5%92%8C%E4%B8%BAK%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" target="_blank">leetcode 560. 和为K的子数组</a></p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSubArrayLen</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        ret = <span class="number">0</span></span><br><span class="line">        pre_sum_to_index = &#123;<span class="number">0</span>: -<span class="number">1</span>&#125;</span><br><span class="line">        pre_sum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, num <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            pre_sum += num</span><br><span class="line">            expected_val = pre_sum - k</span><br><span class="line">            <span class="keyword">if</span> expected_val <span class="keyword">in</span> pre_sum_to_index:</span><br><span class="line">                ret = <span class="built_in">max</span>(ret, i - pre_sum_to_index[expected_val])</span><br><span class="line">            <span class="keyword">if</span> pre_sum <span class="keyword">not</span> <span class="keyword">in</span> pre_sum_to_index:</span><br><span class="line">                pre_sum_to_index[pre_sum] = i</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+        <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><h2 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h2><p>超大数组<br>预先开出max(key)的空间，确保每个key都有一个单独的索引</p>
+<h2 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h2><p>拉链数组<br>超大数组会占用的空间太大，可以将输入的数据分桶，每个桶的数据动态增长</p>
+<p>分桶方法：<br>推荐使用质数取余进行分桶</p>
+<p>使用质数取余分桶的原因：<br>只要输入的数据足够随机，是否用质数取模无所谓的；<br>但是实际输入的数据一般是有规律的，如果使用合数取余，当合数和数据存在非1的约数，<br>那数据只会被分桶到约数的倍数，违背了尽量使各个桶之间的元素数近似相等的原则。<br>参考：<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20806796/answer/21359160">https://www.zhihu.com/question/20806796/answer/21359160</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/xp178171640/article/details/102929544">https://blog.csdn.net/xp178171640/article/details/102929544</a></p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="解法1-1"><a href="#解法1-1" class="headerlink" title="解法1"></a>解法1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHashMap</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.hash_map = [-<span class="number">1</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>**<span class="number">6</span> + <span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span>(<span class="params">self, key: <span class="built_in">int</span>, value: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.hash_map[key] = value</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.hash_map[key]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.hash_map[key] = -<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
-
-
+<h2 id="解法2-1"><a href="#解法2-1" class="headerlink" title="解法2"></a>解法2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHashMap</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.bucket_size = <span class="number">1009</span> <span class="comment"># 质数</span></span><br><span class="line">        self.hash_map = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.bucket_size)]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_bucket_index</span>(<span class="params">self, key</span>):</span></span><br><span class="line">        <span class="keyword">return</span> key % self.bucket_size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span>(<span class="params">self, key: <span class="built_in">int</span>, value: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        bucket_index = self.get_bucket_index(key)</span><br><span class="line">        <span class="keyword">for</span> existed_map <span class="keyword">in</span> self.hash_map[bucket_index]:</span><br><span class="line">            <span class="keyword">if</span> existed_map[<span class="number">0</span>] == key:</span><br><span class="line">                existed_map[<span class="number">1</span>] = value</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        self.hash_map[bucket_index].append([key, value])</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        bucket_index = self.get_bucket_index(key)</span><br><span class="line">        <span class="keyword">for</span> existed_key, existed_val <span class="keyword">in</span> self.hash_map[bucket_index]:</span><br><span class="line">            <span class="keyword">if</span> existed_key == key:</span><br><span class="line">                <span class="keyword">return</span> existed_val</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        bucket_index = self.get_bucket_index(key)</span><br><span class="line">        <span class="keyword">for</span> index, existed_map <span class="keyword">in</span> <span class="built_in">enumerate</span>(self.hash_map[bucket_index]):</span><br><span class="line">            <span class="keyword">if</span> existed_map[<span class="number">0</span>] == key:</span><br><span class="line">                self.hash_map[bucket_index].pop(index)</span><br><span class="line">                <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -326,21 +329,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag"># 【算法】前缀和</a>
+              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E5%AD%A6/" rel="tag"># 【算法】数学</a>
+              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%93%88%E5%B8%8C/" rel="tag"># 【算法】哈希</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/04/14/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/" rel="prev" title="leetcode 236. 二叉树的最近公共祖先">
-                  <i class="fa fa-chevron-left"></i> leetcode 236. 二叉树的最近公共祖先
+                <a href="/2021/06/28/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88/" rel="prev" title="leetcode 17. 电话号码的字母组合">
+                  <i class="fa fa-chevron-left"></i> leetcode 17. 电话号码的字母组合
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/04/15/leetcode-1650-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-III/" rel="next" title="leetcode 1650. 二叉树的最近公共祖先 III">
-                  leetcode 1650. 二叉树的最近公共祖先 III <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -517,7 +518,7 @@ NexT.utils.loadComments('.gitalk-container', () => {
       repo        : 'JianmingS.github.io',
       owner       : 'JianmingS',
       admin       : ['JianmingS'],
-      id          : '5861b35563a050e79dcc9c07e38200bb',
+      id          : '6018aaa04f36ac5f4b6f454f0af28661',
       proxy       : 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         language: '',
       distractionFreeMode: true
