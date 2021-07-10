@@ -486,7 +486,7 @@
 <blockquote>
 <p>关于python sorted时间复杂度，可参考：<a href="https://www.cnblogs.com/clement-jiao/p/9243066.html">https://www.cnblogs.com/clement-jiao/p/9243066.html</a></p>
 </blockquote>
-<p>2、最坏情况下N个会议均冲突，此时heappop[0]时间复杂度：O(1)，heappush时间复杂度：O(logN)，故总的时间复杂度为O（N*logN）</p>
+<p>2、最坏情况下N个会议均冲突，此时heappop[0]时间复杂度：O(1)，heappush时间复杂度：O(logN)，故总的时间复杂度为O(N*logN)</p>
 <blockquote>
 <p>关于heapq操作的时间复杂度，可参考：<a href="https://www.coder.work/article/97172">https://www.coder.work/article/97172</a></p>
 </blockquote>
