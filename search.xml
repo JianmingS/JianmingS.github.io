@@ -477,7 +477,7 @@
     <title>leetcode 253. 会议室 II</title>
     <url>/2021/07/11/leetcode-253-%E4%BC%9A%E8%AE%AE%E5%AE%A4-II/</url>
     <content><![CDATA[<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>1、将会议时间数组排序：<br>   按start从小到大排序，当start相同时，按end从小到大排序<br>2、根据会议时间顺序依次安排房间：<br>   记录每个房间释放的时间，若即将安排的会议start早于最小的释放时间，则需要新房间，否则更新房间的释放时间</p>
-<p>贪心关键点：将 “即将安排的会议start” 与 “最小的释放时间” 做比较，尽可能避免冲突</p>
+<p>贪心关键点：将 “即将安排的会议start” 与 “最小的释放时间” 做比较，尽可能避免冲突<br>（关于贪心，可参考：<a href="https://www.jianshu.com/p/ab89df9759c8%EF%BC%89">https://www.jianshu.com/p/ab89df9759c8）</a></p>
 <h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(N*logN)   N：会议时间数组长度</p>
 <p>详细分析：<br>1、python中 sorted 排序时间复杂度：O(N<em>logN)<br>参考：<a href="https://www.cnblogs.com/clement-jiao/p/9243066.html">https://www.cnblogs.com/clement-jiao/p/9243066.html</a><br>2、最坏情况下N个会议均冲突，此时heappop[0]时间复杂度：O(1)，heappush时间复杂度：O(logN)，故总的时间复杂度为O（N</em>logN）</p>
 <h1 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h1><p>O(N)        N：会议时间数组长度</p>
