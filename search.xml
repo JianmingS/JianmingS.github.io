@@ -567,4 +567,17 @@
         <tag>原型模式</tag>
       </tags>
   </entry>
+  <entry>
+    <title>leetcode 198. 打家劫舍</title>
+    <url>/2021/09/18/leetcode-198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/</url>
+    <content><![CDATA[<h1 id="解体思路"><a href="#解体思路" class="headerlink" title="解体思路"></a>解体思路</h1><p>到达第i个房屋，可以偷窃到的最高金额<br>dp[i] = max(dp[i-2] + nums[i], dp[i-1])</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rob</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        nums_len = <span class="built_in">len</span>(nums)</span><br><span class="line">        dp = [<span class="number">0</span>] * nums_len</span><br><span class="line"></span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">if</span> nums_len == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> dp[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        dp[<span class="number">1</span>] = <span class="built_in">max</span>(nums[<span class="number">0</span>], nums[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">if</span> nums_len == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> dp[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, nums_len):</span><br><span class="line">            dp[i] = <span class="built_in">max</span>(dp[i-<span class="number">2</span>] + nums[i], dp[i-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[nums_len-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>【算法】动态规划</tag>
+      </tags>
+  </entry>
 </search>

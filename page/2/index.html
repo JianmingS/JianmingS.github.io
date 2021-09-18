@@ -195,7 +195,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -237,6 +237,88 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/06/23/leetcode-103-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jianming Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jianming Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/06/23/leetcode-103-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">leetcode 103. 二叉树的锯齿形层序遍历</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-06-23 22:52:21 / 修改时间：22:55:45" itemprop="dateCreated datePublished" datetime="2021-06-23T22:52:21+08:00">2021-06-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/06/23/leetcode-103-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 103. 二叉树的锯齿形层序遍历" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>按层遍历二叉树即可</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">zigzagLevelOrder</span>(<span class="params">self, root: TreeNode</span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        ret = []</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line">        </span><br><span class="line">        is_from_left = <span class="literal">True</span></span><br><span class="line">        queue = collections.deque()</span><br><span class="line">        queue.append(root)</span><br><span class="line">        <span class="keyword">while</span> queue:</span><br><span class="line">            tmp_queue = collections.deque()</span><br><span class="line">            val_list = []</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> queue:</span><br><span class="line">                node = queue.popleft()</span><br><span class="line">                <span class="keyword">if</span> is_from_left:</span><br><span class="line">                    val_list.append(node.val)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    val_list.insert(<span class="number">0</span>, node.val)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    tmp_queue.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    tmp_queue.append(node.right)</span><br><span class="line"></span><br><span class="line">            ret.append(val_list)</span><br><span class="line">            is_from_left = <span class="keyword">not</span> is_from_left</span><br><span class="line">            queue = tmp_queue</span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -985,102 +1067,6 @@
 <h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n)</p>
 <h1 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h1><p>O(1)</p>
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">arraySign</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        sign = <span class="number">1</span></span><br><span class="line">        is_zero = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">                is_zero = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> num &lt; <span class="number">0</span>:</span><br><span class="line">                sign *= -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> is_zero <span class="keyword">and</span> sign <span class="keyword">or</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jianming Shi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jianming Shi">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">【工厂模式】工厂方法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-05-21 23:47:37" itemprop="dateCreated datePublished" datetime="2021-05-21T23:47:37+08:00">2021-05-21</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-17 16:40:25" itemprop="dateModified" datetime="2021-07-17T16:40:25+08:00">2021-07-17</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/05/21/%E3%80%90%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E3%80%91%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="【工厂模式】工厂方法" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>创建对象的代码在许多不同的地方，导致难以跟踪应用中创建的对象</p>
-<h1 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h1><p>基于单一的函数创建对象：根据传入参数，创建出想要的对象。<br>（外部不需要知道对象的实现细节）</p>
-<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><h2 id="背景-amp-amp-需求"><a href="#背景-amp-amp-需求" class="headerlink" title="背景&amp;&amp;需求"></a>背景&amp;&amp;需求</h2><p>XXX数据存储于XML文件和JSON文件中，目前需要获取XXX数据</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> xml.etree.ElementTree <span class="keyword">as</span> etree</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JSONDataExtractor</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, file_path</span>):</span></span><br><span class="line">        self.data = <span class="built_in">dict</span>()</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_path, mode=<span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            self.data = json.load(f)</span><br><span class="line">        </span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parsed_data</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.data</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">XMLDataExtractor</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, file_path</span>):</span></span><br><span class="line">        self.tree = etree.parse(file_path)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parsed_data</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.tree</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">data_extractor_factory</span>(<span class="params">file_path</span>):</span></span><br><span class="line">    <span class="keyword">if</span> file_path.endswith(<span class="string">&#x27;json&#x27;</span>):</span><br><span class="line">        extractor = JSONDataExtractor</span><br><span class="line">    <span class="keyword">elif</span> file_path.endswith(<span class="string">&#x27;xml&#x27;</span>):</span><br><span class="line">        extractor = XMLDataExtractor</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&#x27;Cannot extract data from <span class="subst">&#123;file_path&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> extractor(file_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_data</span>(<span class="params">file_path</span>):</span></span><br><span class="line">    factory_obj = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        factory_obj = data_extractor_factory(file_path)</span><br><span class="line">    <span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line">    <span class="keyword">return</span> factory_obj</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    root_path = <span class="string">&#x27;/20210523&#x27;</span></span><br><span class="line">    <span class="comment"># 获取存储在json中的数据</span></span><br><span class="line">    factory = extract_data(os.path.join(root_path, <span class="string">&#x27;test.json&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;JSON Data=<span class="subst">&#123;factory <span class="keyword">and</span> factory.parsed_data&#125;</span>\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取存储在xml中的数据</span></span><br><span class="line">    factory = extract_data(os.path.join(root_path, <span class="string">&#x27;test.xml&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;XML Data=<span class="subst">&#123;factory <span class="keyword">and</span> factory.parsed_data&#125;</span>\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取存储在ini中的数据，会报异常</span></span><br><span class="line">    factory = extract_data(os.path.join(root_path, <span class="string">&#x27;test.ini&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;Abnormal Data=<span class="subst">&#123;factory <span class="keyword">and</span> factory.parsed_data&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><blockquote>
-<p>JSON Data=[{‘title’: ‘Ha’}]</p>
-<p>XML Data=&lt;xml.etree.ElementTree.ElementTree object at 0x7fcd15d79a60&gt;</p>
-<p>Cannot extract data from 20210523/test.ini<br>Abnormal Data=None</p>
-</blockquote>
 
       
     </div>
