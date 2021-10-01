@@ -195,20 +195,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -237,6 +237,149 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/09/21/Docker-%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jianming Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jianming Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/21/Docker-%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Docker 基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-21 16:54:01" itemprop="dateCreated datePublished" datetime="2021-09-21T16:54:01+08:00">2021-09-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-01 15:25:23" itemprop="dateModified" datetime="2021-10-01T15:25:23+08:00">2021-10-01</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/21/Docker-%E5%9F%BA%E7%A1%80/" class="post-meta-item leancloud_visitors" data-flag-title="Docker 基础" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="什么是Docker？"><a href="#什么是Docker？" class="headerlink" title="什么是Docker？"></a>什么是Docker？</h1><p>加速 构建、共享、运行 应用程序的方式</p>
+<h1 id="为什么要使用Docker？"><a href="#为什么要使用Docker？" class="headerlink" title="为什么要使用Docker？"></a>为什么要使用Docker？</h1><h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p>开发时，本机测试环境可以跑，但生产环境跑不起来，很可能的原因：软件环境版本不同。<br>【Docker解决方案】<br>将 “软件+应用环境” 一起打包  =》 一致的运行环境，可以更轻松的构建</p>
+<h2 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h2><p>需要部署n台服务器，服务器软件环境可能不同、服务器多<br>【Docker解决方案】<br>将 “应用+应用环境” 打包为镜像，各服务器下载镜像，运行即可  </p>
+<h2 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h2><p>server有限，需要在一台server运行2个不同软件环境的应用<br>【Docker解决方案】<br>Docker打包2个镜像，分别运行（2个应用进程隔离，互不影响）  </p>
+<h1 id="对比虚拟机"><a href="#对比虚拟机" class="headerlink" title="对比虚拟机"></a>对比虚拟机</h1><h2 id="Docker和虚拟机在物理机中的位置"><a href="#Docker和虚拟机在物理机中的位置" class="headerlink" title="Docker和虚拟机在物理机中的位置"></a>Docker和虚拟机在物理机中的位置</h2><p>![](/images/Docker 基础/2021-10-01 01.33.42.png)<br>从最后起到的作用看：Docker服务 &lt;=&gt; 虚拟机+linux/window</p>
+<h2 id="Docker和虚拟机对比"><a href="#Docker和虚拟机对比" class="headerlink" title="Docker和虚拟机对比"></a>Docker和虚拟机对比</h2><table>
+<thead>
+<tr>
+<th></th>
+<th align="center">虚拟机</th>
+<th align="center">Docker</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>磁盘</td>
+<td align="center">xG～xxG（安装虚拟机+os）</td>
+<td align="center"><font color='green'>xxM~xxxM（安装docker）</font></td>
+</tr>
+<tr>
+<td>部署</td>
+<td align="center">每次费时费力</td>
+<td align="center"><font color='green'>从第2次部署便捷</font></td>
+</tr>
+<tr>
+<td>启动速度</td>
+<td align="center">x分钟（开机-&gt;运行项目）</td>
+<td align="center"><font color='green'>x秒（开启容器-&gt;运行项目）</font></td>
+</tr>
+<tr>
+<td>CPU、内存占用</td>
+<td align="center">高（运行虚拟机+os）</td>
+<td align="center"><font color='green'>极低（运行Docker服务）</font></td>
+</tr>
+<tr>
+<td>运行速度</td>
+<td align="center">慢（资源调度，经过许多步骤）</td>
+<td align="center"><font color='green'>快（docker可直接调用os）</font></td>
+</tr>
+<tr>
+<td>耦合性</td>
+<td align="center">多个app安装在一起，容易相互影响</td>
+<td align="center"><font color='green'>一个app一个容器，实现隔离</font></td>
+</tr>
+<tr>
+<td>系统依赖</td>
+<td align="center">无</td>
+<td align="center"><font color='red'>linux内核</font></td>
+</tr>
+</tbody></table>
+<h2 id="Docker核心概念"><a href="#Docker核心概念" class="headerlink" title="Docker核心概念"></a>Docker核心概念</h2><h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><p>一个镜像   相当于   一个软件<br>特点：只读</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>基于某个镜像运行一次就生成一个程序实例，一个程序实例即为容器<br>特点：可读可写</p>
+<h3 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h3><p>存储Docker中镜像的位置<br>远程仓库：远程服务器存储镜像的位置<br>本地仓库：当前自己及其下在镜像的存储位置  </p>
+<h2 id="Docker架构图"><a href="#Docker架构图" class="headerlink" title="Docker架构图"></a>Docker架构图</h2><p>![](/images/Docker 基础/2021-10-01 15.16.04.png)</p>
+<h2 id="Docker镜像分层原理"><a href="#Docker镜像分层原理" class="headerlink" title="Docker镜像分层原理"></a>Docker镜像分层原理</h2><h3 id="镜像-1"><a href="#镜像-1" class="headerlink" title="镜像"></a>镜像</h3><p>软件运行环境 + 软件<br>包含：代码、运行时所需的库、环境变量、配置文件  </p>
+<h3 id="镜像为什么这么大？"><a href="#镜像为什么这么大？" class="headerlink" title="镜像为什么这么大？"></a>镜像为什么这么大？</h3><p>image = 自身软件+软件自身以来+os依赖  </p>
+<h3 id="镜像为什么分层？"><a href="#镜像为什么分层？" class="headerlink" title="镜像为什么分层？"></a>镜像为什么分层？</h3><p>![](/images/Docker 基础/2021-10-01 15.24.12.png)<br>Docker在设计镜像时，每一个镜像都是由n个镜像共同组成，镜像像花卷一层层组成（UnionFs联合文件系统）<br>通过分层：多个镜像可以实现基础镜像的共享，从而减小远程/本地仓库整体体积</p>
+<h2 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h2><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1]<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ZT4y1K75K?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV1ZT4y1K75K?spm_id_from=333.999.0.0</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1016,88 +1159,6 @@
 <h2 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h2><p>利用python3内置函数，生成笛卡尔积</p>
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="解法1-1"><a href="#解法1-1" class="headerlink" title="解法1"></a>解法1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.num_chars_mapping = &#123;</span><br><span class="line">            <span class="number">2</span>: [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>],</span><br><span class="line">            <span class="number">3</span>: [<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>],</span><br><span class="line">            <span class="number">4</span>: [<span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;i&#x27;</span>],</span><br><span class="line">            <span class="number">5</span>: [<span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;l&#x27;</span>],</span><br><span class="line">            <span class="number">6</span>: [<span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;o&#x27;</span>],</span><br><span class="line">            <span class="number">7</span>: [<span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;q&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;s&#x27;</span>],</span><br><span class="line">            <span class="number">8</span>: [<span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;v&#x27;</span>],</span><br><span class="line">            <span class="number">9</span>: [<span class="string">&#x27;w&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;z&#x27;</span>]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">letterCombinations</span>(<span class="params">self, digits: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span></span><br><span class="line">        <span class="keyword">return</span> [] <span class="keyword">if</span> <span class="keyword">not</span> digits <span class="keyword">else</span> self.combinate(<span class="number">0</span>, digits)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">combinate</span>(<span class="params">self, index, s, combinations=[]</span>):</span></span><br><span class="line">        <span class="keyword">if</span> index &gt;= <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">return</span> combinations</span><br><span class="line"></span><br><span class="line">        chars = self.num_chars_mapping[<span class="built_in">int</span>(s[index])]</span><br><span class="line">        <span class="keyword">if</span> index == <span class="number">0</span>:</span><br><span class="line">            combinations = chars</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            tmp = []</span><br><span class="line">            <span class="keyword">for</span> combination <span class="keyword">in</span> combinations:</span><br><span class="line">                <span class="keyword">for</span> char <span class="keyword">in</span> chars:</span><br><span class="line">                    tmp.append(combination+char)</span><br><span class="line">            combinations = tmp</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.combinate(index+<span class="number">1</span>, s, combinations)</span><br></pre></td></tr></table></figure>
 <h2 id="解法2-1"><a href="#解法2-1" class="headerlink" title="解法2"></a>解法2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.num_chars_mapping = &#123;</span><br><span class="line">            <span class="number">2</span>: [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>],</span><br><span class="line">            <span class="number">3</span>: [<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>],</span><br><span class="line">            <span class="number">4</span>: [<span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;i&#x27;</span>],</span><br><span class="line">            <span class="number">5</span>: [<span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;l&#x27;</span>],</span><br><span class="line">            <span class="number">6</span>: [<span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;o&#x27;</span>],</span><br><span class="line">            <span class="number">7</span>: [<span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;q&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;s&#x27;</span>],</span><br><span class="line">            <span class="number">8</span>: [<span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;v&#x27;</span>],</span><br><span class="line">            <span class="number">9</span>: [<span class="string">&#x27;w&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;z&#x27;</span>]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">letterCombinations</span>(<span class="params">self, digits: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> digits:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        groups = [self.num_chars_mapping[<span class="built_in">int</span>(digit)] <span class="keyword">for</span> digit <span class="keyword">in</span> digits]</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;&#x27;</span>.join(item) <span class="keyword">for</span> item <span class="keyword">in</span> itertools.product(*groups)]</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/06/25/leetcode-273-%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E8%8B%B1%E6%96%87%E8%A1%A8%E7%A4%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jianming Shi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jianming Shi">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/06/25/leetcode-273-%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E8%8B%B1%E6%96%87%E8%A1%A8%E7%A4%BA/" class="post-title-link" itemprop="url">leetcode 273. 整数转换英文表示</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-06-25 22:20:41 / 修改时间：22:32:44" itemprop="dateCreated datePublished" datetime="2021-06-25T22:20:41+08:00">2021-06-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/06/25/leetcode-273-%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E8%8B%B1%E6%96%87%E8%A1%A8%E7%A4%BA/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 273. 整数转换英文表示" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>模拟 “整数” 转换为 “英文”<br>注意：100 转换结果为 One Hundred</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numberToWords</span>(<span class="params">self, num: <span class="built_in">int</span></span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;Zero&#x27;</span></span><br><span class="line">        </span><br><span class="line">        result = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">        billion = num // <span class="number">1000000000</span></span><br><span class="line">        million = (num % <span class="number">1000000000</span>) // <span class="number">1000000</span></span><br><span class="line">        thousand = (num % <span class="number">1000000</span>) // <span class="number">1000</span></span><br><span class="line">        rest = num % <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> billion:</span><br><span class="line">            result += self.three(billion) + <span class="string">&#x27; Billion&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> million:</span><br><span class="line">            result += result <span class="keyword">and</span> <span class="string">&#x27; &#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">            result += self.three(million) + <span class="string">&#x27; Million&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> thousand:</span><br><span class="line">            result += result <span class="keyword">and</span> <span class="string">&#x27; &#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">            result += self.three(thousand) + <span class="string">&#x27; Thousand&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> rest:</span><br><span class="line">            result += result <span class="keyword">and</span> <span class="string">&#x27; &#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">            result += self.three(rest)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">three</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        hundred = num // <span class="number">100</span></span><br><span class="line">        rest = num % <span class="number">100</span></span><br><span class="line">        <span class="keyword">if</span> hundred <span class="keyword">and</span> rest:</span><br><span class="line">            <span class="keyword">return</span> self.one(hundred) + <span class="string">&#x27; Hundred &#x27;</span> + self.two(rest)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hundred <span class="keyword">and</span> rest:</span><br><span class="line">            <span class="keyword">return</span> self.two(rest)</span><br><span class="line">        <span class="keyword">if</span> hundred <span class="keyword">and</span> <span class="keyword">not</span> rest:</span><br><span class="line">            <span class="keyword">return</span> self.one(hundred) + <span class="string">&#x27; Hundred&#x27;</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">one</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        switcher = &#123;</span><br><span class="line">            <span class="number">1</span>: <span class="string">&#x27;One&#x27;</span>,</span><br><span class="line">            <span class="number">2</span>: <span class="string">&#x27;Two&#x27;</span>,</span><br><span class="line">            <span class="number">3</span>: <span class="string">&#x27;Three&#x27;</span>,</span><br><span class="line">            <span class="number">4</span>: <span class="string">&#x27;Four&#x27;</span>,</span><br><span class="line">            <span class="number">5</span>: <span class="string">&#x27;Five&#x27;</span>,</span><br><span class="line">            <span class="number">6</span>: <span class="string">&#x27;Six&#x27;</span>,</span><br><span class="line">            <span class="number">7</span>: <span class="string">&#x27;Seven&#x27;</span>,</span><br><span class="line">            <span class="number">8</span>: <span class="string">&#x27;Eight&#x27;</span>,</span><br><span class="line">            <span class="number">9</span>: <span class="string">&#x27;Nine&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> switcher.get(num)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">two</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        <span class="keyword">if</span> num &lt; <span class="number">10</span>:</span><br><span class="line">            <span class="keyword">return</span> self.one(num)</span><br><span class="line">        <span class="keyword">if</span> num &lt; <span class="number">20</span>:</span><br><span class="line">            <span class="keyword">return</span> self.two_less_20(num)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            tenner = num // <span class="number">10</span></span><br><span class="line">            rest = num % <span class="number">10</span></span><br><span class="line">            <span class="keyword">return</span> rest <span class="keyword">and</span> self.ten(tenner) + <span class="string">&#x27; &#x27;</span> + self.one(rest) <span class="keyword">or</span> self.ten(tenner)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">two_less_20</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        switcher = &#123;</span><br><span class="line">            <span class="number">10</span>: <span class="string">&#x27;Ten&#x27;</span>,</span><br><span class="line">            <span class="number">11</span>: <span class="string">&#x27;Eleven&#x27;</span>,</span><br><span class="line">            <span class="number">12</span>: <span class="string">&#x27;Twelve&#x27;</span>,</span><br><span class="line">            <span class="number">13</span>: <span class="string">&#x27;Thirteen&#x27;</span>,</span><br><span class="line">            <span class="number">14</span>: <span class="string">&#x27;Fourteen&#x27;</span>,</span><br><span class="line">            <span class="number">15</span>: <span class="string">&#x27;Fifteen&#x27;</span>,</span><br><span class="line">            <span class="number">16</span>: <span class="string">&#x27;Sixteen&#x27;</span>,</span><br><span class="line">            <span class="number">17</span>: <span class="string">&#x27;Seventeen&#x27;</span>,</span><br><span class="line">            <span class="number">18</span>: <span class="string">&#x27;Eighteen&#x27;</span>,</span><br><span class="line">            <span class="number">19</span>: <span class="string">&#x27;Nineteen&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> switcher.get(num)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ten</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        switcher = &#123;</span><br><span class="line">            <span class="number">2</span>: <span class="string">&#x27;Twenty&#x27;</span>,</span><br><span class="line">            <span class="number">3</span>: <span class="string">&#x27;Thirty&#x27;</span>,</span><br><span class="line">            <span class="number">4</span>: <span class="string">&#x27;Forty&#x27;</span>,</span><br><span class="line">            <span class="number">5</span>: <span class="string">&#x27;Fifty&#x27;</span>,</span><br><span class="line">            <span class="number">6</span>: <span class="string">&#x27;Sixty&#x27;</span>,</span><br><span class="line">            <span class="number">7</span>: <span class="string">&#x27;Seventy&#x27;</span>,</span><br><span class="line">            <span class="number">8</span>: <span class="string">&#x27;Eighty&#x27;</span>,</span><br><span class="line">            <span class="number">9</span>: <span class="string">&#x27;Ninety&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> switcher.get(num)</span><br></pre></td></tr></table></figure>
-
       
     </div>
 
