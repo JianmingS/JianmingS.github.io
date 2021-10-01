@@ -618,8 +618,8 @@
 </tr>
 <tr>
 <td>运行速度</td>
-<td align="center">慢（应用-&gt;linux/windows-&gt;虚拟机-&gt;os）</td>
-<td align="center"><font color='green'>快（应用-&gt;docker-&gt;os）</font></td>
+<td align="center">慢（调度：应用-&gt;linux/windows-&gt;虚拟机-&gt;os）</td>
+<td align="center"><font color='green'>快（调度：应用-&gt;docker-&gt;os）</font></td>
 </tr>
 <tr>
 <td>耦合性</td>
