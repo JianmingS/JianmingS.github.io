@@ -195,20 +195,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -237,6 +237,108 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/10/02/neovim%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jianming Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jianming Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/10/02/neovim%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">neovim使用记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-10-02 17:21:17 / 修改时间：17:39:48" itemprop="dateCreated datePublished" datetime="2021-10-02T17:21:17+08:00">2021-10-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/10/02/neovim%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" class="post-meta-item leancloud_visitors" data-flag-title="neovim使用记录" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>从<a target="_blank" rel="noopener" href="https://github.com/neovim/neovim/releases%E4%B8%8B%E8%BD%BD%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%EF%BC%9Anvim-macos.tar.gz">https://github.com/neovim/neovim/releases下载最新版本：nvim-macos.tar.gz</a></p>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xzvf nvim-macos.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>将解压文件夹（nvim-osx64）剪切到 /Users/sjm/Tools</p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="修改默认配置文件位置"><a href="#修改默认配置文件位置" class="headerlink" title="修改默认配置文件位置"></a>修改默认配置文件位置</h2><p>在/Users/sjm/Tools/nvim-osx64下新建文件夹nvim</p>
+<p>在文件夹nvim下，新建文件init.vim</p>
+<h2 id="指定nvim别名"><a href="#指定nvim别名" class="headerlink" title="指定nvim别名"></a>指定nvim别名</h2><p>执行</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .zshrc</span><br></pre></td></tr></table></figure>
+
+<p>添加</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias nvim=&quot;XDG_CONFIG_HOME=/Users/sjm/Tools/nvim-osx64 /Users/sjm/Tools/nvim-osx64/bin/nvim&quot;</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .zshrc</span><br></pre></td></tr></table></figure>
+
+<h1 id="验证nvim可用"><a href="#验证nvim可用" class="headerlink" title="验证nvim可用"></a>验证nvim可用</h1><p>执行</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvim</span><br></pre></td></tr></table></figure>
+
+<p>预期出现nvim窗口</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://lin.am/blog/2020-11-28-multiple-versions-of-neovim/">修改nvim配置文件位置</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -369,7 +471,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-10-01 17:24:34" itemprop="dateModified" datetime="2021-10-01T17:24:34+08:00">2021-10-01</time>
+        <time title="修改时间：2021-10-02 17:39:38" itemprop="dateModified" datetime="2021-10-02T17:39:38+08:00">2021-10-02</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -454,7 +556,9 @@
 <h1 id="Docker镜像分层原理"><a href="#Docker镜像分层原理" class="headerlink" title="Docker镜像分层原理"></a>Docker镜像分层原理</h1><h2 id="镜像-1"><a href="#镜像-1" class="headerlink" title="镜像"></a>镜像</h2><p>软件运行环境 + 软件<br>包含：代码、运行时所需的库、环境变量、配置文件  </p>
 <h2 id="镜像为什么这么大？"><a href="#镜像为什么这么大？" class="headerlink" title="镜像为什么这么大？"></a>镜像为什么这么大？</h2><p>image = 自身软件+软件自身依赖+os依赖  </p>
 <h2 id="镜像为什么分层？"><a href="#镜像为什么分层？" class="headerlink" title="镜像为什么分层？"></a>镜像为什么分层？</h2><p><img src="/images/Docker%20%E5%9F%BA%E7%A1%80/2021-10-01%2015.24.12.png"><br>Docker在设计镜像时，每一个镜像都是由n个镜像共同组成，镜像像花卷一层层组成（UnionFs联合文件系统)<br>通过分层：多个镜像可以实现基础镜像的共享，从而减小远程/本地仓库整体体积</p>
-<h1 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1]<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ZT4y1K75K?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV1ZT4y1K75K?spm_id_from=333.999.0.0</a></p>
+<h1 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ZT4y1K75K?spm_id_from=333.999.0.0">Docker容器技术实战教程</a></li>
+</ul>
 
       
     </div>
@@ -1076,98 +1180,6 @@
           <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>“二分查找”<br>注意考虑 3 种情况：<br>1、nums[l] &lt; nums[mid]<br>2、nums[l] &gt; nums[mid]<br>3、nums[l] == nums[mid]</p>
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], target: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        l = <span class="number">0</span></span><br><span class="line">        r = <span class="built_in">len</span>(nums) - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> l &lt;= r:</span><br><span class="line">            mid = (l+r) &gt;&gt; <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> target == nums[mid]:</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            <span class="keyword">if</span> nums[l] &lt;= nums[mid]:</span><br><span class="line">                <span class="keyword">if</span> nums[l] &lt;= target &lt; nums[mid]:</span><br><span class="line">                    r = mid - <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    l = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> nums[mid] &lt; target &lt;= nums[r]:</span><br><span class="line">                    l = mid + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    r = mid - <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/07/02/leetcode-706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jianming Shi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jianming Shi">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/07/02/leetcode-706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/" class="post-title-link" itemprop="url">leetcode 706. 设计哈希映射</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-07-02 21:58:17" itemprop="dateCreated datePublished" datetime="2021-07-02T21:58:17+08:00">2021-07-02</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-03 00:06:52" itemprop="dateModified" datetime="2021-07-03T00:06:52+08:00">2021-07-03</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/07/02/leetcode-706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 706. 设计哈希映射" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><h2 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h2><h3 id="超大数组"><a href="#超大数组" class="headerlink" title="超大数组"></a>超大数组</h3><p>预先开出max(key)的空间，确保每个key都有一个单独的索引</p>
-<h2 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h2><h3 id="拉链数组"><a href="#拉链数组" class="headerlink" title="拉链数组"></a>拉链数组</h3><p>超大数组会占用的空间太大，可以将输入的数据分桶，每个桶的数据动态增长</p>
-<h3 id="分桶方法"><a href="#分桶方法" class="headerlink" title="分桶方法"></a>分桶方法</h3><p>推荐使用质数取余进行分桶</p>
-<h3 id="使用质数取余分桶的原因"><a href="#使用质数取余分桶的原因" class="headerlink" title="使用质数取余分桶的原因"></a>使用质数取余分桶的原因</h3><p>只要输入的数据足够随机，是否用质数取模无所谓的；<br>但是实际输入的数据一般是有规律的，如果使用合数取余，当合数和数据存在非1的约数，<br>那数据只会被分桶到约数的倍数，违背了尽量使各个桶之间的元素数近似相等的原则。<br>参考：<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20806796/answer/21359160">https://www.zhihu.com/question/20806796/answer/21359160</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/xp178171640/article/details/102929544">https://blog.csdn.net/xp178171640/article/details/102929544</a></p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="解法1-1"><a href="#解法1-1" class="headerlink" title="解法1"></a>解法1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHashMap</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.hash_map = [-<span class="number">1</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>**<span class="number">6</span> + <span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span>(<span class="params">self, key: <span class="built_in">int</span>, value: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.hash_map[key] = value</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.hash_map[key]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.hash_map[key] = -<span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="解法2-1"><a href="#解法2-1" class="headerlink" title="解法2"></a>解法2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHashMap</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.bucket_size = <span class="number">1009</span> <span class="comment"># 质数</span></span><br><span class="line">        self.hash_map = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.bucket_size)]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_bucket_index</span>(<span class="params">self, key</span>):</span></span><br><span class="line">        <span class="keyword">return</span> key % self.bucket_size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span>(<span class="params">self, key: <span class="built_in">int</span>, value: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        bucket_index = self.get_bucket_index(key)</span><br><span class="line">        <span class="keyword">for</span> existed_map <span class="keyword">in</span> self.hash_map[bucket_index]:</span><br><span class="line">            <span class="keyword">if</span> existed_map[<span class="number">0</span>] == key:</span><br><span class="line">                existed_map[<span class="number">1</span>] = value</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        self.hash_map[bucket_index].append([key, value])</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        bucket_index = self.get_bucket_index(key)</span><br><span class="line">        <span class="keyword">for</span> existed_key, existed_val <span class="keyword">in</span> self.hash_map[bucket_index]:</span><br><span class="line">            <span class="keyword">if</span> existed_key == key:</span><br><span class="line">                <span class="keyword">return</span> existed_val</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        bucket_index = self.get_bucket_index(key)</span><br><span class="line">        <span class="keyword">for</span> index, existed_map <span class="keyword">in</span> <span class="built_in">enumerate</span>(self.hash_map[bucket_index]):</span><br><span class="line">            <span class="keyword">if</span> existed_map[<span class="number">0</span>] == key:</span><br><span class="line">                self.hash_map[bucket_index].pop(index)</span><br><span class="line">                <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
       
     </div>
 

@@ -639,7 +639,9 @@
 <h1 id="Docker镜像分层原理"><a href="#Docker镜像分层原理" class="headerlink" title="Docker镜像分层原理"></a>Docker镜像分层原理</h1><h2 id="镜像-1"><a href="#镜像-1" class="headerlink" title="镜像"></a>镜像</h2><p>软件运行环境 + 软件<br>包含：代码、运行时所需的库、环境变量、配置文件  </p>
 <h2 id="镜像为什么这么大？"><a href="#镜像为什么这么大？" class="headerlink" title="镜像为什么这么大？"></a>镜像为什么这么大？</h2><p>image = 自身软件+软件自身依赖+os依赖  </p>
 <h2 id="镜像为什么分层？"><a href="#镜像为什么分层？" class="headerlink" title="镜像为什么分层？"></a>镜像为什么分层？</h2><p><img src="/images/Docker%20%E5%9F%BA%E7%A1%80/2021-10-01%2015.24.12.png"><br>Docker在设计镜像时，每一个镜像都是由n个镜像共同组成，镜像像花卷一层层组成（UnionFs联合文件系统)<br>通过分层：多个镜像可以实现基础镜像的共享，从而减小远程/本地仓库整体体积</p>
-<h1 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1]<a href="https://www.bilibili.com/video/BV1ZT4y1K75K?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV1ZT4y1K75K?spm_id_from=333.999.0.0</a></p>
+<h1 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>[1] <a href="https://www.bilibili.com/video/BV1ZT4y1K75K?spm_id_from=333.999.0.0">Docker容器技术实战教程</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>Docker</category>
@@ -663,6 +665,39 @@
       </categories>
       <tags>
         <tag>【算法】优先队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>neovim使用记录</title>
+    <url>/2021/10/02/neovim%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>从<a href="https://github.com/neovim/neovim/releases%E4%B8%8B%E8%BD%BD%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%EF%BC%9Anvim-macos.tar.gz">https://github.com/neovim/neovim/releases下载最新版本：nvim-macos.tar.gz</a></p>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><figure class="highlight console"><table><tr><td class="code"><pre><span class="line">tar xzvf nvim-macos.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>将解压文件夹（nvim-osx64）剪切到 /Users/sjm/Tools</p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="修改默认配置文件位置"><a href="#修改默认配置文件位置" class="headerlink" title="修改默认配置文件位置"></a>修改默认配置文件位置</h2><p>在/Users/sjm/Tools/nvim-osx64下新建文件夹nvim</p>
+<p>在文件夹nvim下，新建文件init.vim</p>
+<h2 id="指定nvim别名"><a href="#指定nvim别名" class="headerlink" title="指定nvim别名"></a>指定nvim别名</h2><p>执行</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">vim .zshrc</span><br></pre></td></tr></table></figure>
+
+<p>添加</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">alias nvim=&quot;XDG_CONFIG_HOME=/Users/sjm/Tools/nvim-osx64 /Users/sjm/Tools/nvim-osx64/bin/nvim&quot;</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">source .zshrc</span><br></pre></td></tr></table></figure>
+
+<h1 id="验证nvim可用"><a href="#验证nvim可用" class="headerlink" title="验证nvim可用"></a>验证nvim可用</h1><p>执行</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">nvim</span><br></pre></td></tr></table></figure>
+
+<p>预期出现nvim窗口</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>[1] <a href="https://lin.am/blog/2020-11-28-multiple-versions-of-neovim/">修改nvim配置文件位置</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>vim</tag>
       </tags>
   </entry>
 </search>
