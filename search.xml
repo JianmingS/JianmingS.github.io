@@ -656,7 +656,7 @@
 
 <h3 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h3><figure class="highlight console"><table><tr><td class="code"><pre><span class="line">docker exec -it 容器ID bash</span><br></pre></td></tr></table></figure>
 
-<h3 id="启动-停止-重启容器"><a href="#启动-停止-重启容器" class="headerlink" title="启动|停止|重启容器"></a>启动|停止|重启容器</h3><figure class="highlight console"><table><tr><td class="code"><pre><span class="line">docker start 容器ID</span><br><span class="line">docker stop 容器ID</span><br><span class="line">docker restart 容器ID</span><br></pre></td></tr></table></figure>
+<h3 id="启动｜停止｜重启容器"><a href="#启动｜停止｜重启容器" class="headerlink" title="启动｜停止｜重启容器"></a>启动｜停止｜重启容器</h3><figure class="highlight console"><table><tr><td class="code"><pre><span class="line">docker start 容器ID</span><br><span class="line">docker stop 容器ID</span><br><span class="line">docker restart 容器ID</span><br></pre></td></tr></table></figure>
 
 <h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><figure class="highlight console"><table><tr><td class="code"><pre><span class="line">docker rm 容器ID</span><br></pre></td></tr></table></figure>
 
