@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jianmings.github.io/2022/01/13/Redis-%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2022-01-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jianmings.github.io/2021/09/21/Docker-%E5%9F%BA%E7%A1%80/</loc>
     
     <lastmod>2021-10-07</lastmod>
@@ -479,6 +486,13 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://jianmings.github.io/tags/%E3%80%90Redis%E3%80%91%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2022-01-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -504,6 +518,13 @@
   
   <url>
     <loc>https://jianmings.github.io/categories/Tools/</loc>
+    <lastmod>2022-01-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jianmings.github.io/categories/Redis/</loc>
     <lastmod>2022-01-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

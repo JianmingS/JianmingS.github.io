@@ -721,4 +721,191 @@
         <tag>vim</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Redis 基础</title>
+    <url>/2022/01/13/Redis-%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="引言：NoSQL"><a href="#引言：NoSQL" class="headerlink" title="引言：NoSQL"></a>引言：NoSQL</h1><h2 id="什么是NoSQL"><a href="#什么是NoSQL" class="headerlink" title="什么是NoSQL"></a>什么是NoSQL</h2><p>Not Only SQL，不仅仅是SQL，泛指非关系型数据库</p>
+<ul>
+<li><p>关系型数据库：操作数据时，使用sql（sql server、mysql等）</p>
+</li>
+<li><p>非关系型数据库：操作数据时，不是使用sql，有自己的语法</p>
+</li>
+</ul>
+<h2 id="为什么会出现NoSQL"><a href="#为什么会出现NoSQL" class="headerlink" title="为什么会出现NoSQL"></a>为什么会出现NoSQL</h2><p>随着业务的发展，关系型数据库面对大规模和高并发的动态网站，出现了实现复杂、性能低的问题。</p>
+<p>举例：</p>
+<ul>
+<li>商城网站中对商品的频繁查询</li>
+<li>热搜排行榜</li>
+<li>订单超时问题</li>
+<li>音频、视频存储</li>
+</ul>
+<h2 id="NoSQL四大分类"><a href="#NoSQL四大分类" class="headerlink" title="NoSQL四大分类"></a>NoSQL四大分类</h2><h4 id="1-键值（Key-Value）存储数据库"><a href="#1-键值（Key-Value）存储数据库" class="headerlink" title="1. 键值（Key-Value）存储数据库"></a>1. 键值（Key-Value）存储数据库</h4><ul>
+<li><p>说明：主要使用一个哈希表，表中由键值对组成（类比python中对字典）</p>
+</li>
+<li><p>特点：Key/Value模型优势在于简单、易部署</p>
+</li>
+<li><p>产品：Redis</p>
+</li>
+</ul>
+<h4 id="2-列存储数据库"><a href="#2-列存储数据库" class="headerlink" title="2. 列存储数据库"></a>2. 列存储数据库</h4><ul>
+<li><p>说明：用于分布式存储海量数据（十亿、百亿级数据）</p>
+</li>
+<li><p>特点：键仍然存在，但特点是指向了多个列</p>
+</li>
+<li><p>产品：HBase</p>
+</li>
+</ul>
+<h4 id="3-文档型数据库"><a href="#3-文档型数据库" class="headerlink" title="3. 文档型数据库"></a>3. 文档型数据库</h4><ul>
+<li><p>说明：以特定格式存储数据，比如：json。比键值数据库查询效率更高</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 数据举例</span></span><br><span class="line">&#123;<span class="built_in">id</span>: <span class="number">1</span>, name: Zhangsan, age:<span class="number">10</span>, score:<span class="number">100</span>&#125;</span><br><span class="line">&#123;<span class="built_in">id</span>: <span class="number">2</span>, name: Lisi&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>特点：以文档形式存储</p>
+</li>
+<li><p>产品：MongoDB</p>
+</li>
+</ul>
+<h4 id="4-图形（Graph）数据库"><a href="#4-图形（Graph）数据库" class="headerlink" title="4. 图形（Graph）数据库"></a>4. 图形（Graph）数据库</h4><ul>
+<li>说明：数据以灵活的图形模型进行存储</li>
+<li>特点：没有标准的查询语言，通过接口进行查询</li>
+<li>产品：Neo4J</li>
+</ul>
+<h2 id="NoSQL应用场景"><a href="#NoSQL应用场景" class="headerlink" title="NoSQL应用场景"></a>NoSQL应用场景</h2><ul>
+<li>数据模型简单</li>
+<li>IT系统对 数据灵活性 要求比较高</li>
+<li>对数据库性能要求较高</li>
+<li>不需要高度的数据一致性（比如：排行榜，数据错1～2个没关系）</li>
+</ul>
+<h1 id="Redis介绍"><a href="#Redis介绍" class="headerlink" title="Redis介绍"></a>Redis介绍</h1><h2 id="什么是Redis"><a href="#什么是Redis" class="headerlink" title="什么是Redis"></a>什么是Redis</h2><blockquote>
+<p> Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。 </p>
+</blockquote>
+<p>Redis 数据在内存中</p>
+<ul>
+<li>优点：读写快</li>
+<li>缺点：断电消失</li>
+<li>解决断电消失的方案：持久化机制（内存数据会定期写入到硬盘中）</li>
+</ul>
+<h2 id="Redis特点"><a href="#Redis特点" class="headerlink" title="Redis特点"></a>Redis特点</h2><ul>
+<li><p>高性能key/value内存型数据库</p>
+</li>
+<li><p>支持丰富的数据模型（String、List、Set等）</p>
+</li>
+<li><p>支持持久化（内存数据会定期写入到硬盘中）</p>
+</li>
+<li><p>单进程、单线程 （线程安全，应用场景：分布式锁）</p>
+<p>  “分布式锁” 应用场景说明：</p>
+<p>  多个请求同时访问共享数据时，可能导致数据不同步 </p>
+<p>  =》加threading.Lock锁</p>
+<p>  但当server部署在多台服务器上时，请求可能访问任意一台服务器上的server，但此时threading.Lock锁会只对其所在的server生效，无法解决多台服务器上的数据不同步的问题 </p>
+<p>  =》加分布式锁</p>
+</li>
+</ul>
+<h2 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h2><h3 id="Ubuntu安装Redis"><a href="#Ubuntu安装Redis" class="headerlink" title="Ubuntu安装Redis"></a>Ubuntu安装Redis</h3> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install redis-server</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows安装Redis"><a href="#Windows安装Redis" class="headerlink" title="Windows安装Redis"></a>Windows安装Redis</h3><p>官方不提供Windows安装包，需要到github上获取安装包（比如：<a href="https://github.com/MicrosoftArchive/redis/releases">微软提供的安装包</a>），本地解压即可使用</p>
+<h3 id="Redis使用前的准备"><a href="#Redis使用前的准备" class="headerlink" title="Redis使用前的准备"></a>Redis使用前的准备</h3><p>修改redis配置文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p>需要修改的配置信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 允许来自任意一台PC上的客户端访问</span></span><br><span class="line">bind 0.0.0.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows可视化工具"><a href="#Windows可视化工具" class="headerlink" title="Windows可视化工具"></a>Windows可视化工具</h3><p><a href="https://resp.app/">Redis Desktop Manager</a></p>
+<p><img src="/images/Redis%20%E5%9F%BA%E7%A1%80/rdm.png" alt="rdm"></p>
+<h2 id="Redis基本操作"><a href="#Redis基本操作" class="headerlink" title="Redis基本操作"></a>Redis基本操作</h2><figure class="highlight shell"><figcaption><span>l</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 客户端连接redis服务端</span></span><br><span class="line">redis-cli -h 10.211.55.4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 选择库（默认16个库，编号：0～15，默认使用0号库）：select dbid(库编号)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 注：库的个数可以通过修改配置文件进行调整。修改配置文件（/etc/redis/redis.conf）中的 databases 对应的值</span></span><br><span class="line">select 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> String类型</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">set name Zhangsan</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">get name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List类型（有序 可重复）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">lpush nameList name1 name2 name3</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">lrange nameList 0 -1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set类型（无序 不可重复）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">sadd nameSet name1 name2 name3 name2</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">smembers nameSet</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ZSet类型（可排序的<span class="built_in">set</span>集合，排序 不可重复）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">zadd nameZSet 85 name1 100 name2 80 name3 90 name1</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">zrange nameSet 0 -1 withscores   # 默认升序</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hash类型（value是 键值结构）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">hset studentHash name Zhangsan</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">hget studentHash name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 为key设置生存时间（单位：秒），当key过期时，会自动删除</span></span><br><span class="line">expire name 10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis应用场景举例"><a href="#Redis应用场景举例" class="headerlink" title="Redis应用场景举例"></a>Redis应用场景举例</h2><ul>
+<li><p>具有时效性的功能</p>
+<ul>
+<li>验证码：超过60s失效</li>
+<li>未付款的订单：超过2h未付款，自动取消</li>
+<li>token信息（安全令牌）</li>
+</ul>
+</li>
+<li><p>排行榜功能</p>
+</li>
+<li><p>分布式缓存</p>
+<p>  将频繁被查询的信息，放到缓存中。请求优先从缓存中读取数据，如果没有再读数据库</p>
+</li>
+<li><p>分布式集群系统中，Session共享</p>
+<p>  （Session：会话信息，存储客户端的身份信息，告诉web服务器当前请求是属于哪个会话的，用于区分用户）</p>
+</li>
+<li><p>分布式集群系统中，分布式锁</p>
+</li>
+</ul>
+<h2 id="Redis持久化机制（2种）"><a href="#Redis持久化机制（2种）" class="headerlink" title="Redis持久化机制（2种）"></a>Redis持久化机制（2种）</h2><h3 id="什么是持久化"><a href="#什么是持久化" class="headerlink" title="什么是持久化"></a>什么是持久化</h3><p>将内存中的数据写入到磁盘中</p>
+<h3 id="【持久化机制1】快照"><a href="#【持久化机制1】快照" class="headerlink" title="【持久化机制1】快照"></a>【持久化机制1】快照</h3><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>保存某一时刻的所有数据到磁盘（默认开启），默认保存到文件后缀.rdb，故也被称为RDB方式</p>
+<p>（.rdb文件默认存储位置：/var/lib/redis/dump.rdb）</p>
+<p>![截屏2022-01-16 23.45.24](/images/Redis 基础/截屏2022-01-16 23.45.24.png)</p>
+<h4 id="生成方式"><a href="#生成方式" class="headerlink" title="生成方式"></a>生成方式</h4><ul>
+<li><p>客户端触发（2种方式）</p>
+<ul>
+<li><p>BGSAVE：fork一个子进程创建快照，父进程继续处理命令请求</p>
+<p>  ![截屏2022-01-17 00.00.24](/images/Redis 基础/截屏2022-01-17 00.00.24.png)</p>
+</li>
+<li><p>SAVE（不常用）：主进程负责创建快照，创建过程中不能处理命令请求</p>
+<p>  ![截屏2022-01-17 00.09.49](/images/Redis 基础/截屏2022-01-17 00.09.49.png)</p>
+</li>
+</ul>
+</li>
+<li><p>服务器自动配置触发</p>
+<p>  配置文件（/etc/redis/redis.conf）中 配置save的触发条件（触发BGSAVE）</p>
+</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>在t1时刻创建了快照，但是在t2时刻宕机，则 t1~t2 之间的数据丢失</p>
+<h3 id="【持久化机制2】AOF"><a href="#【持久化机制2】AOF" class="headerlink" title="【持久化机制2】AOF"></a>【持久化机制2】AOF</h3><h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><p>AOF（append only file），将所有客户端的写命令依次记录到AOF文件中。</p>
+<p>当需要恢复数据时，redis会执行一次AOF文件所包含的所有写命令。</p>
+<p>![截屏2022-01-17 01.08.49](/images/Redis 基础/截屏2022-01-17 01.08.49.png)</p>
+<h4 id="生成方式-1"><a href="#生成方式-1" class="headerlink" title="生成方式"></a>生成方式</h4><p>在配置文件（/etc/redis/redis.conf）中，开启AOF持久化（默认没有开启）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置文件中 “持久化” 选项</span></span><br><span class="line">appendonly yes											# 开启持久化	</span><br><span class="line">appendfilename &quot;appendonly.aof&quot;			# 指定持久化文件名称</span><br><span class="line">appendfsync	everysec								# 指定追加频率</span><br></pre></td></tr></table></figure>
+
+<p>关于追加频率，有3种选项</p>
+<ul>
+<li>always（谨慎使用）<ul>
+<li>说明：每个redis写命令都要同步写入磁盘。</li>
+<li>优点：在系统崩溃时，丢失的数据减少到最小</li>
+<li>缺点：由于频繁的对硬盘进行写入操作，会严重降低redis速度；对于固态硬盘，可能会引发 “<a href="https://www.zhihu.com/question/31024021/answer/110423556">写入放大</a>”问题，导致固态硬盘寿命由原来的几年降低为几个月</li>
+</ul>
+</li>
+<li>everysec（推荐）<ul>
+<li>说明：每秒执行一次同步，将多个命令写入磁盘。</li>
+<li>优点：兼顾了数据安全和写入性能，redis 每秒同步一次AOF文件时的性能 和 不使用任何持久化特性时的性能 相差无几</li>
+<li>缺点：在系统崩溃时，最多丢失1秒内产生的数据</li>
+</ul>
+</li>
+<li>no（不推荐）<ul>
+<li>说明：由操作系统决定何时同步</li>
+<li>优点：不会对redis性能产生影响</li>
+<li>缺点：系统崩溃时，丢失的数据不可控；当缓存了大量的写命令时，触发同步写入磁盘，redis处理命令速度会变慢</li>
+</ul>
+</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><p>AOF文件占用大量磁盘空间</p>
+<p>修改key为name的值10000次，会在AOF文件中记录10000条写入命令，导致AOF文件变得很大。</p>
+<h4 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h4><p>只记录最后一次修改key为name的值就好了，可以减少AOF文件的体积</p>
+<h5 id="触发重写的方式"><a href="#触发重写的方式" class="headerlink" title="触发重写的方式"></a>触发重写的方式</h5><ul>
+<li><p>客户端触发重写</p>
+<p>  执行 BGREWRITEAOF 命令，不会阻塞redis服务</p>
+</li>
+<li><p>服务器配置自动触发</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改配置文件（/etc/redis/redis.conf）中的参数，触发自动重写</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg：*64MB --&gt; 20M --&gt; *40MB --&gt; 18MB --&gt; *36MB</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 默认的配置：AOF文件体积越小，触发重写频率越高；体积越大，触发重写频率越低</span></span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>重写AOF文件的操作，并没有读取旧的文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的AOF文件，再替换原有的AOF文件</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>2种持久化可以同时使用（在redis启动时，会使用AOF文件恢复数据），也可以单独使用</li>
+<li>除了将数据持久化到硬盘，建议在不同的地方备份</li>
+</ul>
+<h2 id="Redis主从复制架构"><a href="#Redis主从复制架构" class="headerlink" title="Redis主从复制架构"></a>Redis主从复制架构</h2><p>Todo</p>
+<h2 id="Redis哨兵机制"><a href="#Redis哨兵机制" class="headerlink" title="Redis哨兵机制"></a>Redis哨兵机制</h2><p>Todo</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><p>[1] <a href="https://redis.io/">Redis官网</a></p>
+</li>
+<li><p>[2] <a href="http://www.redis.cn/">Redis中文官网</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>【Redis】基础</tag>
+      </tags>
+  </entry>
 </search>

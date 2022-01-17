@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="google-site-verification" content="_kji_EtkGDZB-s2zArLODABDwPGs4CX2fGiCpUIjci0" />
+<meta name="baidu-site-verification" content="code-YCddSmXIns" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianmings.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.3.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="引言：NoSQL什么是NoSQLNot Only SQL，不仅仅是SQL，泛指非关系型数据库  关系型数据库：操作数据时，使用sql（sql server、mysql等）  非关系型数据库：操作数据时，不是使用sql，有自己的语法   为什么会出现NoSQL随着业务的发展，关系型数据库面对大规模和高并发的动态网站，出现了实现复杂、性能低的问题。 举例：  商城网站中对商品的频繁查询 热搜排行榜 订">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 基础">
+<meta property="og:url" content="https://jianmings.github.io/2022/01/13/Redis-%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Jianming Shi">
+<meta property="og:description" content="引言：NoSQL什么是NoSQLNot Only SQL，不仅仅是SQL，泛指非关系型数据库  关系型数据库：操作数据时，使用sql（sql server、mysql等）  非关系型数据库：操作数据时，不是使用sql，有自己的语法   为什么会出现NoSQL随着业务的发展，关系型数据库面对大规模和高并发的动态网站，出现了实现复杂、性能低的问题。 举例：  商城网站中对商品的频繁查询 热搜排行榜 订">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianmings.github.io/images/Redis%20%E5%9F%BA%E7%A1%80/rdm.png">
+<meta property="article:published_time" content="2022-01-13T14:59:29.000Z">
+<meta property="article:modified_time" content="2022-01-17T14:33:58.739Z">
+<meta property="article:author" content="Jianming Shi">
+<meta property="article:tag" content="【Redis】基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianmings.github.io/images/Redis%20%E5%9F%BA%E7%A1%80/rdm.png">
+
+
+<link rel="canonical" href="https://jianmings.github.io/2022/01/13/Redis-%E5%9F%BA%E7%A1%80/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Redis 基础 | Jianming Shi</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jianming Shi</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">JianmingS@outlook.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E8%A8%80%EF%BC%9ANoSQL"><span class="nav-number">1.</span> <span class="nav-text">引言：NoSQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFNoSQL"><span class="nav-number">1.1.</span> <span class="nav-text">什么是NoSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0NoSQL"><span class="nav-number">1.2.</span> <span class="nav-text">为什么会出现NoSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NoSQL%E5%9B%9B%E5%A4%A7%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">NoSQL四大分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%94%AE%E5%80%BC%EF%BC%88Key-Value%EF%BC%89%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">1. 键值（Key-Value）存储数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%97%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">2. 列存储数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%96%87%E6%A1%A3%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">3. 文档型数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%9B%BE%E5%BD%A2%EF%BC%88Graph%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">4. 图形（Graph）数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NoSQL%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.4.</span> <span class="nav-text">NoSQL应用场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">Redis介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRedis"><span class="nav-number">2.1.</span> <span class="nav-text">什么是Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E7%89%B9%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">Redis特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%AE%89%E8%A3%85"><span class="nav-number">2.3.</span> <span class="nav-text">Redis安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ubuntu%E5%AE%89%E8%A3%85Redis"><span class="nav-number">2.3.1.</span> <span class="nav-text">Ubuntu安装Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E5%AE%89%E8%A3%85Redis"><span class="nav-number">2.3.2.</span> <span class="nav-text">Windows安装Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E4%BD%BF%E7%94%A8%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="nav-number">2.3.3.</span> <span class="nav-text">Redis使用前的准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="nav-number">2.3.4.</span> <span class="nav-text">Windows可视化工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.4.</span> <span class="nav-text">Redis基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%BE%E4%BE%8B"><span class="nav-number">2.5.</span> <span class="nav-text">Redis应用场景举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6%EF%BC%882%E7%A7%8D%EF%BC%89"><span class="nav-number">2.6.</span> <span class="nav-text">Redis持久化机制（2种）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">2.6.1.</span> <span class="nav-text">什么是持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B61%E3%80%91%E5%BF%AB%E7%85%A7"><span class="nav-number">2.6.2.</span> <span class="nav-text">【持久化机制1】快照</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.6.2.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F"><span class="nav-number">2.6.2.2.</span> <span class="nav-text">生成方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">2.6.2.3.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B62%E3%80%91AOF"><span class="nav-number">2.6.3.</span> <span class="nav-text">【持久化机制2】AOF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-1"><span class="nav-number">2.6.3.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F-1"><span class="nav-number">2.6.3.2.</span> <span class="nav-text">生成方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="nav-number">2.6.3.3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF%E9%87%8D%E5%86%99"><span class="nav-number">2.6.3.4.</span> <span class="nav-text">AOF重写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E9%87%8D%E5%86%99%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.6.3.4.1.</span> <span class="nav-text">触发重写的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.6.3.4.2.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.6.3.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%9E%B6%E6%9E%84"><span class="nav-number">2.7.</span> <span class="nav-text">Redis主从复制架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6"><span class="nav-number">2.8.</span> <span class="nav-text">Redis哨兵机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jianming Shi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2022/01/13/Redis-%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jianming Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jianming Shi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis 基础
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-13 22:59:29" itemprop="dateCreated datePublished" datetime="2022-01-13T22:59:29+08:00">2022-01-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-01-17 22:33:58" itemprop="dateModified" datetime="2022-01-17T22:33:58+08:00">2022-01-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2022/01/13/Redis-%E5%9F%BA%E7%A1%80/" class="post-meta-item leancloud_visitors" data-flag-title="Redis 基础" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="引言：NoSQL"><a href="#引言：NoSQL" class="headerlink" title="引言：NoSQL"></a>引言：NoSQL</h1><h2 id="什么是NoSQL"><a href="#什么是NoSQL" class="headerlink" title="什么是NoSQL"></a>什么是NoSQL</h2><p>Not Only SQL，不仅仅是SQL，泛指非关系型数据库</p>
+<ul>
+<li><p>关系型数据库：操作数据时，使用sql（sql server、mysql等）</p>
+</li>
+<li><p>非关系型数据库：操作数据时，不是使用sql，有自己的语法</p>
+</li>
+</ul>
+<h2 id="为什么会出现NoSQL"><a href="#为什么会出现NoSQL" class="headerlink" title="为什么会出现NoSQL"></a>为什么会出现NoSQL</h2><p>随着业务的发展，关系型数据库面对大规模和高并发的动态网站，出现了实现复杂、性能低的问题。</p>
+<p>举例：</p>
+<ul>
+<li>商城网站中对商品的频繁查询</li>
+<li>热搜排行榜</li>
+<li>订单超时问题</li>
+<li>音频、视频存储</li>
+</ul>
+<h2 id="NoSQL四大分类"><a href="#NoSQL四大分类" class="headerlink" title="NoSQL四大分类"></a>NoSQL四大分类</h2><h4 id="1-键值（Key-Value）存储数据库"><a href="#1-键值（Key-Value）存储数据库" class="headerlink" title="1. 键值（Key-Value）存储数据库"></a>1. 键值（Key-Value）存储数据库</h4><ul>
+<li><p>说明：主要使用一个哈希表，表中由键值对组成（类比python中对字典）</p>
+</li>
+<li><p>特点：Key/Value模型优势在于简单、易部署</p>
+</li>
+<li><p>产品：Redis</p>
+</li>
+</ul>
+<h4 id="2-列存储数据库"><a href="#2-列存储数据库" class="headerlink" title="2. 列存储数据库"></a>2. 列存储数据库</h4><ul>
+<li><p>说明：用于分布式存储海量数据（十亿、百亿级数据）</p>
+</li>
+<li><p>特点：键仍然存在，但特点是指向了多个列</p>
+</li>
+<li><p>产品：HBase</p>
+</li>
+</ul>
+<h4 id="3-文档型数据库"><a href="#3-文档型数据库" class="headerlink" title="3. 文档型数据库"></a>3. 文档型数据库</h4><ul>
+<li><p>说明：以特定格式存储数据，比如：json。比键值数据库查询效率更高</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据举例</span></span><br><span class="line">&#123;<span class="built_in">id</span>: <span class="number">1</span>, name: Zhangsan, age:<span class="number">10</span>, score:<span class="number">100</span>&#125;</span><br><span class="line">&#123;<span class="built_in">id</span>: <span class="number">2</span>, name: Lisi&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>特点：以文档形式存储</p>
+</li>
+<li><p>产品：MongoDB</p>
+</li>
+</ul>
+<h4 id="4-图形（Graph）数据库"><a href="#4-图形（Graph）数据库" class="headerlink" title="4. 图形（Graph）数据库"></a>4. 图形（Graph）数据库</h4><ul>
+<li>说明：数据以灵活的图形模型进行存储</li>
+<li>特点：没有标准的查询语言，通过接口进行查询</li>
+<li>产品：Neo4J</li>
+</ul>
+<h2 id="NoSQL应用场景"><a href="#NoSQL应用场景" class="headerlink" title="NoSQL应用场景"></a>NoSQL应用场景</h2><ul>
+<li>数据模型简单</li>
+<li>IT系统对 数据灵活性 要求比较高</li>
+<li>对数据库性能要求较高</li>
+<li>不需要高度的数据一致性（比如：排行榜，数据错1～2个没关系）</li>
+</ul>
+<h1 id="Redis介绍"><a href="#Redis介绍" class="headerlink" title="Redis介绍"></a>Redis介绍</h1><h2 id="什么是Redis"><a href="#什么是Redis" class="headerlink" title="什么是Redis"></a>什么是Redis</h2><blockquote>
+<p> Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。 </p>
+</blockquote>
+<p>Redis 数据在内存中</p>
+<ul>
+<li>优点：读写快</li>
+<li>缺点：断电消失</li>
+<li>解决断电消失的方案：持久化机制（内存数据会定期写入到硬盘中）</li>
+</ul>
+<h2 id="Redis特点"><a href="#Redis特点" class="headerlink" title="Redis特点"></a>Redis特点</h2><ul>
+<li><p>高性能key/value内存型数据库</p>
+</li>
+<li><p>支持丰富的数据模型（String、List、Set等）</p>
+</li>
+<li><p>支持持久化（内存数据会定期写入到硬盘中）</p>
+</li>
+<li><p>单进程、单线程 （线程安全，应用场景：分布式锁）</p>
+<p>  “分布式锁” 应用场景说明：</p>
+<p>  多个请求同时访问共享数据时，可能导致数据不同步 </p>
+<p>  =》加threading.Lock锁</p>
+<p>  但当server部署在多台服务器上时，请求可能访问任意一台服务器上的server，但此时threading.Lock锁会只对其所在的server生效，无法解决多台服务器上的数据不同步的问题 </p>
+<p>  =》加分布式锁</p>
+</li>
+</ul>
+<h2 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h2><h3 id="Ubuntu安装Redis"><a href="#Ubuntu安装Redis" class="headerlink" title="Ubuntu安装Redis"></a>Ubuntu安装Redis</h3> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install redis-server</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows安装Redis"><a href="#Windows安装Redis" class="headerlink" title="Windows安装Redis"></a>Windows安装Redis</h3><p>官方不提供Windows安装包，需要到github上获取安装包（比如：<a target="_blank" rel="noopener" href="https://github.com/MicrosoftArchive/redis/releases">微软提供的安装包</a>），本地解压即可使用</p>
+<h3 id="Redis使用前的准备"><a href="#Redis使用前的准备" class="headerlink" title="Redis使用前的准备"></a>Redis使用前的准备</h3><p>修改redis配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p>需要修改的配置信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 允许来自任意一台PC上的客户端访问</span></span><br><span class="line">bind 0.0.0.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows可视化工具"><a href="#Windows可视化工具" class="headerlink" title="Windows可视化工具"></a>Windows可视化工具</h3><p><a target="_blank" rel="noopener" href="https://resp.app/">Redis Desktop Manager</a></p>
+<p><img src="/images/Redis%20%E5%9F%BA%E7%A1%80/rdm.png" alt="rdm"></p>
+<h2 id="Redis基本操作"><a href="#Redis基本操作" class="headerlink" title="Redis基本操作"></a>Redis基本操作</h2><figure class="highlight shell"><figcaption><span>l</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 客户端连接redis服务端</span></span><br><span class="line">redis-cli -h 10.211.55.4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 选择库（默认16个库，编号：0～15，默认使用0号库）：select dbid(库编号)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 注：库的个数可以通过修改配置文件进行调整。修改配置文件（/etc/redis/redis.conf）中的 databases 对应的值</span></span><br><span class="line">select 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> String类型</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">set name Zhangsan</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">get name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List类型（有序 可重复）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">lpush nameList name1 name2 name3</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">lrange nameList 0 -1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set类型（无序 不可重复）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">sadd nameSet name1 name2 name3 name2</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">smembers nameSet</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ZSet类型（可排序的<span class="built_in">set</span>集合，排序 不可重复）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">zadd nameZSet 85 name1 100 name2 80 name3 90 name1</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">zrange nameSet 0 -1 withscores   # 默认升序</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hash类型（value是 键值结构）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置</span></span></span><br><span class="line">hset studentHash name Zhangsan</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 获取</span></span></span><br><span class="line">hget studentHash name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 为key设置生存时间（单位：秒），当key过期时，会自动删除</span></span><br><span class="line">expire name 10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis应用场景举例"><a href="#Redis应用场景举例" class="headerlink" title="Redis应用场景举例"></a>Redis应用场景举例</h2><ul>
+<li><p>具有时效性的功能</p>
+<ul>
+<li>验证码：超过60s失效</li>
+<li>未付款的订单：超过2h未付款，自动取消</li>
+<li>token信息（安全令牌）</li>
+</ul>
+</li>
+<li><p>排行榜功能</p>
+</li>
+<li><p>分布式缓存</p>
+<p>  将频繁被查询的信息，放到缓存中。请求优先从缓存中读取数据，如果没有再读数据库</p>
+</li>
+<li><p>分布式集群系统中，Session共享</p>
+<p>  （Session：会话信息，存储客户端的身份信息，告诉web服务器当前请求是属于哪个会话的，用于区分用户）</p>
+</li>
+<li><p>分布式集群系统中，分布式锁</p>
+</li>
+</ul>
+<h2 id="Redis持久化机制（2种）"><a href="#Redis持久化机制（2种）" class="headerlink" title="Redis持久化机制（2种）"></a>Redis持久化机制（2种）</h2><h3 id="什么是持久化"><a href="#什么是持久化" class="headerlink" title="什么是持久化"></a>什么是持久化</h3><p>将内存中的数据写入到磁盘中</p>
+<h3 id="【持久化机制1】快照"><a href="#【持久化机制1】快照" class="headerlink" title="【持久化机制1】快照"></a>【持久化机制1】快照</h3><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>保存某一时刻的所有数据到磁盘（默认开启），默认保存到文件后缀.rdb，故也被称为RDB方式</p>
+<p>（.rdb文件默认存储位置：/var/lib/redis/dump.rdb）</p>
+<p>![截屏2022-01-16 23.45.24](/images/Redis 基础/截屏2022-01-16 23.45.24.png)</p>
+<h4 id="生成方式"><a href="#生成方式" class="headerlink" title="生成方式"></a>生成方式</h4><ul>
+<li><p>客户端触发（2种方式）</p>
+<ul>
+<li><p>BGSAVE：fork一个子进程创建快照，父进程继续处理命令请求</p>
+<p>  ![截屏2022-01-17 00.00.24](/images/Redis 基础/截屏2022-01-17 00.00.24.png)</p>
+</li>
+<li><p>SAVE（不常用）：主进程负责创建快照，创建过程中不能处理命令请求</p>
+<p>  ![截屏2022-01-17 00.09.49](/images/Redis 基础/截屏2022-01-17 00.09.49.png)</p>
+</li>
+</ul>
+</li>
+<li><p>服务器自动配置触发</p>
+<p>  配置文件（/etc/redis/redis.conf）中 配置save的触发条件（触发BGSAVE）</p>
+</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>在t1时刻创建了快照，但是在t2时刻宕机，则 t1~t2 之间的数据丢失</p>
+<h3 id="【持久化机制2】AOF"><a href="#【持久化机制2】AOF" class="headerlink" title="【持久化机制2】AOF"></a>【持久化机制2】AOF</h3><h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><p>AOF（append only file），将所有客户端的写命令依次记录到AOF文件中。</p>
+<p>当需要恢复数据时，redis会执行一次AOF文件所包含的所有写命令。</p>
+<p>![截屏2022-01-17 01.08.49](/images/Redis 基础/截屏2022-01-17 01.08.49.png)</p>
+<h4 id="生成方式-1"><a href="#生成方式-1" class="headerlink" title="生成方式"></a>生成方式</h4><p>在配置文件（/etc/redis/redis.conf）中，开启AOF持久化（默认没有开启）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置文件中 “持久化” 选项</span></span><br><span class="line">appendonly yes											# 开启持久化	</span><br><span class="line">appendfilename &quot;appendonly.aof&quot;			# 指定持久化文件名称</span><br><span class="line">appendfsync	everysec								# 指定追加频率</span><br></pre></td></tr></table></figure>
+
+<p>关于追加频率，有3种选项</p>
+<ul>
+<li>always（谨慎使用）<ul>
+<li>说明：每个redis写命令都要同步写入磁盘。</li>
+<li>优点：在系统崩溃时，丢失的数据减少到最小</li>
+<li>缺点：由于频繁的对硬盘进行写入操作，会严重降低redis速度；对于固态硬盘，可能会引发 “<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31024021/answer/110423556">写入放大</a>”问题，导致固态硬盘寿命由原来的几年降低为几个月</li>
+</ul>
+</li>
+<li>everysec（推荐）<ul>
+<li>说明：每秒执行一次同步，将多个命令写入磁盘。</li>
+<li>优点：兼顾了数据安全和写入性能，redis 每秒同步一次AOF文件时的性能 和 不使用任何持久化特性时的性能 相差无几</li>
+<li>缺点：在系统崩溃时，最多丢失1秒内产生的数据</li>
+</ul>
+</li>
+<li>no（不推荐）<ul>
+<li>说明：由操作系统决定何时同步</li>
+<li>优点：不会对redis性能产生影响</li>
+<li>缺点：系统崩溃时，丢失的数据不可控；当缓存了大量的写命令时，触发同步写入磁盘，redis处理命令速度会变慢</li>
+</ul>
+</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><p>AOF文件占用大量磁盘空间</p>
+<p>修改key为name的值10000次，会在AOF文件中记录10000条写入命令，导致AOF文件变得很大。</p>
+<h4 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h4><p>只记录最后一次修改key为name的值就好了，可以减少AOF文件的体积</p>
+<h5 id="触发重写的方式"><a href="#触发重写的方式" class="headerlink" title="触发重写的方式"></a>触发重写的方式</h5><ul>
+<li><p>客户端触发重写</p>
+<p>  执行 BGREWRITEAOF 命令，不会阻塞redis服务</p>
+</li>
+<li><p>服务器配置自动触发</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改配置文件（/etc/redis/redis.conf）中的参数，触发自动重写</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg：*64MB --&gt; 20M --&gt; *40MB --&gt; 18MB --&gt; *36MB</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 默认的配置：AOF文件体积越小，触发重写频率越高；体积越大，触发重写频率越低</span></span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>重写AOF文件的操作，并没有读取旧的文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的AOF文件，再替换原有的AOF文件</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>2种持久化可以同时使用（在redis启动时，会使用AOF文件恢复数据），也可以单独使用</li>
+<li>除了将数据持久化到硬盘，建议在不同的地方备份</li>
+</ul>
+<h2 id="Redis主从复制架构"><a href="#Redis主从复制架构" class="headerlink" title="Redis主从复制架构"></a>Redis主从复制架构</h2><p>Todo</p>
+<h2 id="Redis哨兵机制"><a href="#Redis哨兵机制" class="headerlink" title="Redis哨兵机制"></a>Redis哨兵机制</h2><p>Todo</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><p>[1] <a target="_blank" rel="noopener" href="https://redis.io/">Redis官网</a></p>
+</li>
+<li><p>[2] <a target="_blank" rel="noopener" href="http://www.redis.cn/">Redis中文官网</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E3%80%90Redis%E3%80%91%E5%9F%BA%E7%A1%80/" rel="tag"># 【Redis】基础</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/02/neovim%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" rel="prev" title="neovim使用记录">
+                  <i class="fa fa-chevron-left"></i> neovim使用记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jianming Shi</span>
+</div>
+  <div class="powered-by">
+    
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"DseXQ4A185tpyAXvSwi0K8l7-gzGzoHsz","app_key":"WTobH0kOeSjBf4hP6V0t6Tvj","server_url":null,"security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('.gitalk-container', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '9dc48b2ebc6a9063022c',
+      clientSecret: '010b170d0f8fedf8de98d230ca2b3799add9fdc0',
+      repo        : 'JianmingS.github.io',
+      owner       : 'JianmingS',
+      admin       : ['JianmingS'],
+      id          : '0f91d5918e0a9015634271ecdb1fc237',
+      proxy       : 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render(document.querySelector('.gitalk-container'));
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
