@@ -833,15 +833,15 @@
 <h2 id="Redis持久化机制（2种）"><a href="#Redis持久化机制（2种）" class="headerlink" title="Redis持久化机制（2种）"></a>Redis持久化机制（2种）</h2><h3 id="什么是持久化"><a href="#什么是持久化" class="headerlink" title="什么是持久化"></a>什么是持久化</h3><p>将内存中的数据写入到磁盘中</p>
 <h3 id="【持久化机制1】快照"><a href="#【持久化机制1】快照" class="headerlink" title="【持久化机制1】快照"></a>【持久化机制1】快照</h3><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>保存某一时刻的所有数据到磁盘（默认开启），默认保存到文件后缀.rdb，故也被称为RDB方式</p>
 <p>（.rdb文件默认存储位置：/var/lib/redis/dump.rdb）</p>
-<p>![截屏2022-01-16 23.45.24](/images/Redis 基础/截屏2022-01-16 23.45.24.png)</p>
+<p>![2022-01-16 23.45.24](/images/Redis 基础/2022-01-16 23.45.24.png)</p>
 <h4 id="生成方式"><a href="#生成方式" class="headerlink" title="生成方式"></a>生成方式</h4><ul>
 <li><p>客户端触发（2种方式）</p>
 <ul>
 <li><p>BGSAVE：fork一个子进程创建快照，父进程继续处理命令请求</p>
-<p>  ![截屏2022-01-17 00.00.24](/images/Redis 基础/截屏2022-01-17 00.00.24.png)</p>
+<p>  ![2022-01-17 00.00.24](/images/Redis 基础/2022-01-17 00.00.24.png)</p>
 </li>
 <li><p>SAVE（不常用）：主进程负责创建快照，创建过程中不能处理命令请求</p>
-<p>  ![截屏2022-01-17 00.09.49](/images/Redis 基础/截屏2022-01-17 00.09.49.png)</p>
+<p>  ![2022-01-17 00.09.49](/images/Redis 基础/2022-01-17 00.09.49.png)</p>
 </li>
 </ul>
 </li>
