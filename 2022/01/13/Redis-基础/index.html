@@ -33,8 +33,12 @@
 <meta property="og:description" content="引言：NoSQL什么是NoSQLNot Only SQL，不仅仅是SQL，泛指非关系型数据库  关系型数据库：操作数据时，使用sql（sql server、mysql等）  非关系型数据库：操作数据时，不是使用sql，有自己的语法   为什么会出现NoSQL随着业务的发展，关系型数据库面对大规模和高并发的动态网站，出现了实现复杂、性能低的问题。 举例：  商城网站中对商品的频繁查询 热搜排行榜 订">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianmings.github.io/images/Redis%20%E5%9F%BA%E7%A1%80/rdm.png">
+<meta property="og:image" content="https://jianmings.github.io/images/Redis%20%E5%9F%BA%E7%A1%80/2022-01-16%2023.45.24.png">
+<meta property="og:image" content="https://jianmings.github.io/images/Redis%20%E5%9F%BA%E7%A1%80/2022-01-17%2000.00.24.png">
+<meta property="og:image" content="https://jianmings.github.io/images/Redis%20%E5%9F%BA%E7%A1%80/2022-01-17%2000.09.49.png">
+<meta property="og:image" content="https://jianmings.github.io/images/Redis%20%E5%9F%BA%E7%A1%80/2022-01-17%2001.08.49.png">
 <meta property="article:published_time" content="2022-01-13T14:59:29.000Z">
-<meta property="article:modified_time" content="2022-01-17T15:11:03.236Z">
+<meta property="article:modified_time" content="2022-01-17T15:13:57.567Z">
 <meta property="article:author" content="Jianming Shi">
 <meta property="article:tag" content="【Redis】基础">
 <meta name="twitter:card" content="summary">
@@ -286,7 +290,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-01-17 23:11:03" itemprop="dateModified" datetime="2022-01-17T23:11:03+08:00">2022-01-17</time>
+        <time title="修改时间：2022-01-17 23:13:57" itemprop="dateModified" datetime="2022-01-17T23:13:57+08:00">2022-01-17</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -424,15 +428,15 @@
 <h2 id="Redis持久化机制（2种）"><a href="#Redis持久化机制（2种）" class="headerlink" title="Redis持久化机制（2种）"></a>Redis持久化机制（2种）</h2><h3 id="什么是持久化"><a href="#什么是持久化" class="headerlink" title="什么是持久化"></a>什么是持久化</h3><p>将内存中的数据写入到磁盘中</p>
 <h3 id="【持久化机制1】快照"><a href="#【持久化机制1】快照" class="headerlink" title="【持久化机制1】快照"></a>【持久化机制1】快照</h3><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>保存某一时刻的所有数据到磁盘（默认开启），默认保存到文件后缀.rdb，故也被称为RDB方式</p>
 <p>（.rdb文件默认存储位置：/var/lib/redis/dump.rdb）</p>
-<p>![2022-01-16 23.45.24](/images/Redis%20基础/2022-01-16 23.45.24.png)</p>
+<p><img src="/images/Redis%20%E5%9F%BA%E7%A1%80/2022-01-16%2023.45.24.png" alt="2022-01-16 23.45.24"></p>
 <h4 id="生成方式"><a href="#生成方式" class="headerlink" title="生成方式"></a>生成方式</h4><ul>
 <li><p>客户端触发（2种方式）</p>
 <ul>
 <li><p>BGSAVE：fork一个子进程创建快照，父进程继续处理命令请求</p>
-<p>  ![2022-01-17 00.00.24](/images/Redis%20基础/2022-01-17 00.00.24.png)</p>
+<p>  <img src="/images/Redis%20%E5%9F%BA%E7%A1%80/2022-01-17%2000.00.24.png" alt="2022-01-17 00.00.24"></p>
 </li>
 <li><p>SAVE（不常用）：主进程负责创建快照，创建过程中不能处理命令请求</p>
-<p>  ![2022-01-17 00.09.49](/images/Redis%20基础/2022-01-17 00.09.49.png)</p>
+<p>  <img src="/images/Redis%20%E5%9F%BA%E7%A1%80/2022-01-17%2000.09.49.png" alt="2022-01-17 00.09.49"></p>
 </li>
 </ul>
 </li>
@@ -443,7 +447,7 @@
 <h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>在t1时刻创建了快照，但是在t2时刻宕机，则 t1~t2 之间的数据丢失</p>
 <h3 id="【持久化机制2】AOF"><a href="#【持久化机制2】AOF" class="headerlink" title="【持久化机制2】AOF"></a>【持久化机制2】AOF</h3><h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><p>AOF（append only file），将所有客户端的写命令依次记录到AOF文件中。</p>
 <p>当需要恢复数据时，redis会执行一次AOF文件所包含的所有写命令。</p>
-<p>![2022-01-17 01.08.49](/images/Redis%20基础/2022-01-17 01.08.49.png)</p>
+<p><img src="/images/Redis%20%E5%9F%BA%E7%A1%80/2022-01-17%2001.08.49.png" alt="2022-01-17 01.08.49"></p>
 <h4 id="生成方式-1"><a href="#生成方式-1" class="headerlink" title="生成方式"></a>生成方式</h4><p>在配置文件（/etc/redis/redis.conf）中，开启AOF持久化（默认没有开启）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置文件中 “持久化” 选项</span></span><br><span class="line">appendonly yes											# 开启持久化	</span><br><span class="line">appendfilename &quot;appendonly.aof&quot;			# 指定持久化文件名称</span><br><span class="line">appendfsync	everysec								# 指定追加频率</span><br></pre></td></tr></table></figure>
 
