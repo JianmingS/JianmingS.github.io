@@ -25,21 +25,21 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"jianmings.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.3.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="解题思路同 leetcode 236. 二叉树的最近公共祖先 方法1 代码123456789101112131415161718192021&quot;&quot;&quot;# Definition for a Node.class Node:    def __init__(self, val):        self.val &#x3D; val        self.left &#x3D; None">
+<meta name="description" content="版本12345celery                4.4.2django                1.11.29django-redis          4.5.0django-redis-sentinel 1.0redis                 3.2.0    工程关键代码Django setting文件Cache配置1234567891011121314151617">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode 1650. 二叉树的最近公共祖先 III">
-<meta property="og:url" content="https://jianmings.github.io/2021/04/15/leetcode-1650-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-III/index.html">
+<meta property="og:title" content="Redis哨兵模式部署">
+<meta property="og:url" content="https://jianmings.github.io/2022/02/08/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="Jianming Shi">
-<meta property="og:description" content="解题思路同 leetcode 236. 二叉树的最近公共祖先 方法1 代码123456789101112131415161718192021&quot;&quot;&quot;# Definition for a Node.class Node:    def __init__(self, val):        self.val &#x3D; val        self.left &#x3D; None">
+<meta property="og:description" content="版本12345celery                4.4.2django                1.11.29django-redis          4.5.0django-redis-sentinel 1.0redis                 3.2.0    工程关键代码Django setting文件Cache配置1234567891011121314151617">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-14T16:00:32.000Z">
-<meta property="article:modified_time" content="2021-04-15T15:49:02.586Z">
+<meta property="article:published_time" content="2022-02-08T14:58:13.000Z">
+<meta property="article:modified_time" content="2022-02-08T15:40:24.959Z">
 <meta property="article:author" content="Jianming Shi">
-<meta property="article:tag" content="【算法】二叉树">
+<meta property="article:tag" content="【Redis】实践">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://jianmings.github.io/2021/04/15/leetcode-1650-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-III/">
+<link rel="canonical" href="https://jianmings.github.io/2022/02/08/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E9%83%A8%E7%BD%B2/">
 
 
 <script class="page-configurations">
@@ -51,7 +51,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>leetcode 1650. 二叉树的最近公共祖先 III | Jianming Shi</title>
+<title>Redis哨兵模式部署 | Jianming Shi</title>
   
 
 
@@ -188,7 +188,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E5%85%B3%E9%94%AE%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">工程关键代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django-setting%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">Django setting文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.1.</span> <span class="nav-text">Cache配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Celery%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.2.</span> <span class="nav-text">Celery配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django-Redis%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">Django Redis使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Cache"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用Cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Celery"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用Celery</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">关键命令</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -253,7 +253,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/04/15/leetcode-1650-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-III/">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2022/02/08/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E9%83%A8%E7%BD%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -266,7 +266,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode 1650. 二叉树的最近公共祖先 III
+          Redis哨兵模式部署
         </h1>
 
         <div class="post-meta-container">
@@ -278,7 +278,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-04-15 00:00:32 / 修改时间：23:49:02" itemprop="dateCreated datePublished" datetime="2021-04-15T00:00:32+08:00">2021-04-15</time>
+      <time title="创建时间：2022-02-08 22:58:13 / 修改时间：23:40:24" itemprop="dateCreated datePublished" datetime="2022-02-08T22:58:13+08:00">2022-02-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -286,12 +286,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
         </span>
     </span>
 
   
-    <span id="/2021/04/15/leetcode-1650-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-III/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode 1650. 二叉树的最近公共祖先 III" title="阅读次数">
+    <span id="/2022/02/08/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E9%83%A8%E7%BD%B2/" class="post-meta-item leancloud_visitors" data-flag-title="Redis哨兵模式部署" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -307,8 +307,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>同 <a href="https://jianmings.github.io/2021/04/14/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/" target="_blank">leetcode 236. 二叉树的最近公共祖先</a> 方法1</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.left = None</span></span><br><span class="line"><span class="string">        self.right = None</span></span><br><span class="line"><span class="string">        self.parent = None</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self, p: <span class="string">&#x27;Node&#x27;</span>, q: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; &#x27;Node&#x27;:</span></span><br><span class="line">        p_parent_set = <span class="built_in">set</span>()</span><br><span class="line">        <span class="keyword">while</span> p:</span><br><span class="line">            p_parent_set.add(p.val)</span><br><span class="line">            p = p.parent</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> q:</span><br><span class="line">            <span class="keyword">if</span> q.val <span class="keyword">in</span> p_parent_set:</span><br><span class="line">                <span class="keyword">return</span> q</span><br><span class="line">            q = q.parent</span><br></pre></td></tr></table></figure>
+        <h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">celery                4.4.2</span><br><span class="line">django                1.11.29</span><br><span class="line">django-redis          4.5.0</span><br><span class="line">django-redis-sentinel 1.0</span><br><span class="line">redis                 3.2.0</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="工程关键代码"><a href="#工程关键代码" class="headerlink" title="工程关键代码"></a>工程关键代码</h1><h2 id="Django-setting文件"><a href="#Django-setting文件" class="headerlink" title="Django setting文件"></a>Django setting文件</h2><h3 id="Cache配置"><a href="#Cache配置" class="headerlink" title="Cache配置"></a>Cache配置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    <span class="string">&quot;default&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;BACKEND&quot;</span>: <span class="string">&quot;django_redis.cache.RedisCache&quot;</span>,</span><br><span class="line">        <span class="string">&quot;LOCATION&quot;</span>: <span class="string">&quot;mymaster/10.211.55.4:26379/2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;OPTIONS&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;CLIENT_CLASS&quot;</span>: <span class="string">&quot;django_redis_sentinel.SentinelClient&quot;</span>,</span><br><span class="line">            <span class="string">&quot;CONNECTION_POOL_KWARGS&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;max_connections&quot;</span>: <span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;trace&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;BACKEND&quot;</span>: <span class="string">&quot;django_redis.cache.RedisCache&quot;</span>,</span><br><span class="line">        <span class="string">&quot;LOCATION&quot;</span>: <span class="string">&quot;mymaster/10.211.55.4:26379/3&quot;</span>,</span><br><span class="line">        <span class="string">&quot;OPTIONS&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;CLIENT_CLASS&quot;</span>: <span class="string">&quot;django_redis_sentinel.SentinelClient&quot;</span>,</span><br><span class="line">            <span class="string">&quot;CONNECTION_POOL_KWARGS&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;max_connections&quot;</span>: <span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Celery配置"><a href="#Celery配置" class="headerlink" title="Celery配置"></a>Celery配置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">BROKER_BACKEND = <span class="string">&#x27;redis&#x27;</span></span><br><span class="line">MASTER_NAME = <span class="string">&#x27;mymaster&#x27;</span></span><br><span class="line">CELERY_BROKER_URL = <span class="string">&#x27;sentinel://10.211.55.4:26379/0&#x27;</span></span><br><span class="line">CELERY_BROKER_TRANSPORT_OPTIONS = &#123;<span class="string">&#x27;master_name&#x27;</span>: MASTER_NAME&#125;</span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">&#x27;sentinel://10.211.55.4:26379/1&#x27;</span></span><br><span class="line">CELERY_RESULT_BACKEND_TRANSPORT_OPTIONS = &#123;<span class="string">&#x27;master_name&#x27;</span>: MASTER_NAME&#125;</span><br><span class="line">CELERY_RESULT_EXPIRES = <span class="number">10</span></span><br><span class="line">CELERY_MAX_CACHED_RESULTS = <span class="number">2</span></span><br><span class="line">CELERY_TIMEZONE = <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line">CELERY_ENABLE_UTC = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Django-Redis使用"><a href="#Django-Redis使用" class="headerlink" title="Django Redis使用"></a>Django Redis使用</h2><h3 id="使用Cache"><a href="#使用Cache" class="headerlink" title="使用Cache"></a>使用Cache</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.core.cache <span class="keyword">import</span> caches</span><br><span class="line">cache1 = caches[<span class="string">&#x27;trace&#x27;</span>]</span><br><span class="line">cache1.<span class="built_in">set</span>(<span class="string">&#x27;cache_default&#x27;</span>, <span class="built_in">dict</span>(name=<span class="string">&#x27;cache_default&#x27;</span>), <span class="number">60</span>)</span><br><span class="line">cache1.get(<span class="string">&quot;cache_default&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用Celery"><a href="#使用Celery" class="headerlink" title="使用Celery"></a>使用Celery</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">celery -A LearningPlatformPy2 worker --loglevel=info</span><br><span class="line">celery -A LearningPlatformPy2 beat --loglevel=info</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="关键命令"><a href="#关键命令" class="headerlink" title="关键命令"></a>关键命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 客户端访问redis服务</span></span><br><span class="line">redis-cli -h 10.211.55.4 -p 6379</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动指定配置文件的redis服务</span></span><br><span class="line">redis-server redis.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止指定的redis服务</span></span><br><span class="line">redis-cli -h 10.211.55.4 -p 6379 shutdown</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -318,21 +331,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag"># 【算法】二叉树</a>
+              <a href="/tags/%E3%80%90Redis%E3%80%91%E5%AE%9E%E8%B7%B5/" rel="tag"># 【Redis】实践</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/04/14/leetcode-325-%E5%92%8C%E7%AD%89%E4%BA%8E-k-%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/" rel="prev" title="leetcode 325. 和等于 k 的最长子数组长度">
-                  <i class="fa fa-chevron-left"></i> leetcode 325. 和等于 k 的最长子数组长度
+                <a href="/2022/02/02/leetcode-1405-%E6%9C%80%E9%95%BF%E5%BF%AB%E4%B9%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="prev" title="leetcode 1405 最长快乐字符串">
+                  <i class="fa fa-chevron-left"></i> leetcode 1405 最长快乐字符串
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/04/15/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/" rel="next" title="leetcode 121. 买卖股票的最佳时机">
-                  leetcode 121. 买卖股票的最佳时机 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -509,7 +519,7 @@ NexT.utils.loadComments('.gitalk-container', () => {
       repo        : 'JianmingS.github.io',
       owner       : 'JianmingS',
       admin       : ['JianmingS'],
-      id          : 'ac4f150e17a175b313e2a65b503603fa',
+      id          : 'eea826aafdd56b36142b8fcd170bd710',
       proxy       : 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         language: '',
       distractionFreeMode: true

@@ -195,7 +195,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -208,7 +208,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -237,6 +237,101 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2022/02/08/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jianming Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jianming Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/08/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">Redis哨兵模式部署</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-02-08 22:58:13 / 修改时间：23:40:24" itemprop="dateCreated datePublished" datetime="2022-02-08T22:58:13+08:00">2022-02-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2022/02/08/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E9%83%A8%E7%BD%B2/" class="post-meta-item leancloud_visitors" data-flag-title="Redis哨兵模式部署" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">celery                4.4.2</span><br><span class="line">django                1.11.29</span><br><span class="line">django-redis          4.5.0</span><br><span class="line">django-redis-sentinel 1.0</span><br><span class="line">redis                 3.2.0</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="工程关键代码"><a href="#工程关键代码" class="headerlink" title="工程关键代码"></a>工程关键代码</h1><h2 id="Django-setting文件"><a href="#Django-setting文件" class="headerlink" title="Django setting文件"></a>Django setting文件</h2><h3 id="Cache配置"><a href="#Cache配置" class="headerlink" title="Cache配置"></a>Cache配置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    <span class="string">&quot;default&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;BACKEND&quot;</span>: <span class="string">&quot;django_redis.cache.RedisCache&quot;</span>,</span><br><span class="line">        <span class="string">&quot;LOCATION&quot;</span>: <span class="string">&quot;mymaster/10.211.55.4:26379/2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;OPTIONS&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;CLIENT_CLASS&quot;</span>: <span class="string">&quot;django_redis_sentinel.SentinelClient&quot;</span>,</span><br><span class="line">            <span class="string">&quot;CONNECTION_POOL_KWARGS&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;max_connections&quot;</span>: <span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;trace&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;BACKEND&quot;</span>: <span class="string">&quot;django_redis.cache.RedisCache&quot;</span>,</span><br><span class="line">        <span class="string">&quot;LOCATION&quot;</span>: <span class="string">&quot;mymaster/10.211.55.4:26379/3&quot;</span>,</span><br><span class="line">        <span class="string">&quot;OPTIONS&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;CLIENT_CLASS&quot;</span>: <span class="string">&quot;django_redis_sentinel.SentinelClient&quot;</span>,</span><br><span class="line">            <span class="string">&quot;CONNECTION_POOL_KWARGS&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;max_connections&quot;</span>: <span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Celery配置"><a href="#Celery配置" class="headerlink" title="Celery配置"></a>Celery配置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">BROKER_BACKEND = <span class="string">&#x27;redis&#x27;</span></span><br><span class="line">MASTER_NAME = <span class="string">&#x27;mymaster&#x27;</span></span><br><span class="line">CELERY_BROKER_URL = <span class="string">&#x27;sentinel://10.211.55.4:26379/0&#x27;</span></span><br><span class="line">CELERY_BROKER_TRANSPORT_OPTIONS = &#123;<span class="string">&#x27;master_name&#x27;</span>: MASTER_NAME&#125;</span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">&#x27;sentinel://10.211.55.4:26379/1&#x27;</span></span><br><span class="line">CELERY_RESULT_BACKEND_TRANSPORT_OPTIONS = &#123;<span class="string">&#x27;master_name&#x27;</span>: MASTER_NAME&#125;</span><br><span class="line">CELERY_RESULT_EXPIRES = <span class="number">10</span></span><br><span class="line">CELERY_MAX_CACHED_RESULTS = <span class="number">2</span></span><br><span class="line">CELERY_TIMEZONE = <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line">CELERY_ENABLE_UTC = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Django-Redis使用"><a href="#Django-Redis使用" class="headerlink" title="Django Redis使用"></a>Django Redis使用</h2><h3 id="使用Cache"><a href="#使用Cache" class="headerlink" title="使用Cache"></a>使用Cache</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.core.cache <span class="keyword">import</span> caches</span><br><span class="line">cache1 = caches[<span class="string">&#x27;trace&#x27;</span>]</span><br><span class="line">cache1.<span class="built_in">set</span>(<span class="string">&#x27;cache_default&#x27;</span>, <span class="built_in">dict</span>(name=<span class="string">&#x27;cache_default&#x27;</span>), <span class="number">60</span>)</span><br><span class="line">cache1.get(<span class="string">&quot;cache_default&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用Celery"><a href="#使用Celery" class="headerlink" title="使用Celery"></a>使用Celery</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">celery -A LearningPlatformPy2 worker --loglevel=info</span><br><span class="line">celery -A LearningPlatformPy2 beat --loglevel=info</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="关键命令"><a href="#关键命令" class="headerlink" title="关键命令"></a>关键命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 客户端访问redis服务</span></span><br><span class="line">redis-cli -h 10.211.55.4 -p 6379</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动指定配置文件的redis服务</span></span><br><span class="line">redis-server redis.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止指定的redis服务</span></span><br><span class="line">redis-cli -h 10.211.55.4 -p 6379 shutdown</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1299,102 +1394,6 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>深搜，生成括号</p>
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.n = <span class="literal">None</span></span><br><span class="line">        self.ans = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generateParenthesis</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span></span><br><span class="line">        self.n = n</span><br><span class="line">        self.ans = []</span><br><span class="line">        self.solve(<span class="string">&#x27;&#x27;</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> self.ans</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">solve</span>(<span class="params">self, s, left, right</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) == self.n*<span class="number">2</span>:</span><br><span class="line">            self.ans.append(s)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> left &lt; self.n:</span><br><span class="line">            self.solve(s+<span class="string">&#x27;(&#x27;</span>, left+<span class="number">1</span>, right)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> right &lt; left:</span><br><span class="line">            self.solve(s+<span class="string">&#x27;)&#x27;</span>, left, right+<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://jianmings.github.io/2021/07/17/%E3%80%90%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F%E3%80%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jianming Shi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jianming Shi">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/07/17/%E3%80%90%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F%E3%80%91/" class="post-title-link" itemprop="url">【建造者模式】</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-07-17 17:21:06" itemprop="dateCreated datePublished" datetime="2021-07-17T17:21:06+08:00">2021-07-17</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-18 15:41:25" itemprop="dateModified" datetime="2021-07-18T15:41:25+08:00">2021-07-18</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/07/17/%E3%80%90%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F%E3%80%91/" class="post-meta-item leancloud_visitors" data-flag-title="【建造者模式】" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1、创建的对象复杂，需要由多个部分组成，且这些这些部分需要按照特定顺序完成<br>2、希望构造与表示解耦</p>
-<h1 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h1><p>可以创建一个由多个部分（这些部分按特定顺序完成）组成的对象</p>
-<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><h2 id="背景-amp-amp-需求"><a href="#背景-amp-amp-需求" class="headerlink" title="背景&amp;&amp;需求"></a>背景&amp;&amp;需求</h2><p>披萨订购应用程序<br>支持订购2种披萨：Margarita披萨、CreamyBacon披萨<br>制作披萨需4个步骤：1、准备面团；2、加调味汁；3、加配料；4、烤</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># !/usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> enum <span class="keyword">import</span> Enum</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PizzaProgress</span>(<span class="params">Enum</span>):</span></span><br><span class="line">    queued = <span class="number">1</span></span><br><span class="line">    preparation = <span class="number">2</span></span><br><span class="line">    baking = <span class="number">3</span></span><br><span class="line">    ready = <span class="number">4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PizzaDough</span>(<span class="params">Enum</span>):</span></span><br><span class="line">    thin = <span class="number">1</span>  <span class="comment"># 薄的</span></span><br><span class="line">    thick = <span class="number">2</span>  <span class="comment"># 厚的</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PizzaSauce</span>(<span class="params">Enum</span>):</span></span><br><span class="line">    tomato = <span class="number">1</span></span><br><span class="line">    creme_fraiche = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PizzaTopping</span>(<span class="params">Enum</span>):</span></span><br><span class="line">    mozzarella = <span class="number">1</span>  <span class="comment"># 奶酪</span></span><br><span class="line">    ham = <span class="number">2</span>  <span class="comment"># 火腿</span></span><br><span class="line">    mushrooms = <span class="number">3</span>  <span class="comment"># 蘑菇</span></span><br><span class="line">    double_mozzarella = <span class="number">4</span></span><br><span class="line">    oregano = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pizza</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name</span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.dough = <span class="literal">None</span>  <span class="comment"># 面团</span></span><br><span class="line">        self.sauce = <span class="literal">None</span>  <span class="comment"># 调味汁</span></span><br><span class="line">        self.topping = []  <span class="comment"># 配料</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MargaritaBuilder</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.pizza = Pizza(<span class="string">&#x27;margarita&#x27;</span>)</span><br><span class="line">        self.progress = PizzaProgress.queued</span><br><span class="line">        self.baking_time = <span class="number">1</span>  <span class="comment"># 烤1s</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">prepare_dough</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;prepare dough for margarita&#x27;</span>)</span><br><span class="line">        self.progress = PizzaProgress.preparation</span><br><span class="line">        self.pizza.dough = PizzaDough.thin</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;done with dough&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_sauce</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;add sauce to margarita&#x27;</span>)</span><br><span class="line">        self.pizza.sauce = PizzaSauce.tomato</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;done with sauce&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_topping</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;add topping to margarita&#x27;</span>)</span><br><span class="line">        topping_items = [</span><br><span class="line">            PizzaTopping.double_mozzarella,</span><br><span class="line">            PizzaTopping.oregano</span><br><span class="line">        ]</span><br><span class="line">        self.pizza.topping.append([item <span class="keyword">for</span> item <span class="keyword">in</span> topping_items])</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;done with topping&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bake</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.progress = PizzaProgress.baking</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;baking margarita...&#x27;</span>)</span><br><span class="line">        time.sleep(self.baking_time)</span><br><span class="line">        self.progress = PizzaProgress.ready</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;margarita ready&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CreamyBaconBuilder</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.pizza = Pizza(<span class="string">&#x27;creamy bacon&#x27;</span>)</span><br><span class="line">        self.progress = PizzaProgress.queued</span><br><span class="line">        self.baking_time = <span class="number">2</span>  <span class="comment"># 烤2s</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">prepare_dough</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;prepare dough for creamy bacon&#x27;</span>)</span><br><span class="line">        self.progress = PizzaProgress.preparation</span><br><span class="line">        self.pizza.dough = PizzaDough.thick</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;done with dough&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_sauce</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;add sauce to creamy bacon&#x27;</span>)</span><br><span class="line">        self.pizza.sauce = PizzaSauce.creme_fraiche</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;done with sauce&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_topping</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;add topping to creamy bacon&#x27;</span>)</span><br><span class="line">        topping_items = [</span><br><span class="line">            PizzaTopping.mozzarella,</span><br><span class="line">            PizzaTopping.ham</span><br><span class="line">        ]</span><br><span class="line">        self.pizza.topping.append([item <span class="keyword">for</span> item <span class="keyword">in</span> topping_items])</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;done with topping&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bake</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.progress = PizzaProgress.baking</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;baking creamy bacon...&#x27;</span>)</span><br><span class="line">        time.sleep(self.baking_time)</span><br><span class="line">        self.progress = PizzaProgress.ready</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;creamy bacon ready&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Waiter</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.builder = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">construct_pizza</span>(<span class="params">self, builder</span>):</span></span><br><span class="line">        self.builder = builder</span><br><span class="line">        steps = [</span><br><span class="line">            builder.prepare_dough,</span><br><span class="line">            builder.add_sauce,</span><br><span class="line">            builder.add_topping,</span><br><span class="line">            builder.bake</span><br><span class="line">        ]</span><br><span class="line">        [step() <span class="keyword">for</span> step <span class="keyword">in</span> steps]</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pizza</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.builder.pizza</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    waiter = Waiter()</span><br><span class="line">    waiter.construct_pizza(MargaritaBuilder())</span><br><span class="line">    pizza = waiter.pizza</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;Enjoy <span class="subst">&#123;pizza&#125;</span>!&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;-----------------------&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    waiter.construct_pizza(CreamyBaconBuilder())</span><br><span class="line">    pizza = waiter.pizza</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;Enjoy <span class="subst">&#123;pizza&#125;</span>!&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><blockquote>
-<p>prepare dough for margarita<br>done with dough<br>add sauce to margarita<br>done with sauce<br>add topping to margarita<br>done with topping<br>baking margarita…<br>margarita ready<br>Enjoy margarita!</p>
-<hr>
-<p>prepare dough for creamy bacon<br>done with dough<br>add sauce to creamy bacon<br>done with sauce<br>add topping to creamy bacon<br>done with topping<br>baking creamy bacon…<br>creamy bacon ready<br>Enjoy creamy bacon!</p>
-</blockquote>
-
       
     </div>
 
