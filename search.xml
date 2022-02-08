@@ -953,7 +953,7 @@
   <entry>
     <title>Redis哨兵模式部署</title>
     <url>/2022/02/08/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><figure class="highlight"><table><tr><td class="code"><pre><span class="line">celery                4.4.2</span><br><span class="line">django                1.11.29</span><br><span class="line">django-redis          4.5.0</span><br><span class="line">django-redis-sentinel 1.0</span><br><span class="line">redis                 3.2.0</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><figure class="highlight"><table><tr><td class="code"><pre><span class="line">celery                4.4.2</span><br><span class="line">django                1.11.29</span><br><span class="line">django-redis          4.5.0</span><br><span class="line">django-redis-sentinel 1.0</span><br><span class="line">redis                 3.2.0</span><br><span class="line">python                2.7</span><br></pre></td></tr></table></figure>
 
 
 
