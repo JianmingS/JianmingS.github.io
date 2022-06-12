@@ -976,4 +976,22 @@
         <tag>【Redis】实践</tag>
       </tags>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2022/03/19/Django%20%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="Django-测试"><a href="#Django-测试" class="headerlink" title="Django 测试"></a>Django 测试</h1><h2 id="unittest"><a href="#unittest" class="headerlink" title="unittest"></a>unittest</h2><h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><h2 id="RequestFactory"><a href="#RequestFactory" class="headerlink" title="RequestFactory"></a>RequestFactory</h2>]]></content>
+  </entry>
+  <entry>
+    <title>leetcode 2209 用地毯覆盖后的最少白色砖块</title>
+    <url>/2022/06/12/leetcode-2209.-%E7%94%A8%E5%9C%B0%E6%AF%AF%E8%A6%86%E7%9B%96%E5%90%8E%E7%9A%84%E6%9C%80%E5%B0%91%E7%99%BD%E8%89%B2%E7%A0%96%E5%9D%97/</url>
+    <content><![CDATA[<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minimumWhiteTiles</span>(<span class="params">self, floor: <span class="built_in">str</span>, numCarpets: <span class="built_in">int</span>, carpetLen: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="comment"># 【定义状态】dp[i][j]：使用i条地毯覆盖长度为j的砖块，没被覆盖的白色砖块的最少数目</span></span><br><span class="line">        dp = [[<span class="number">0</span>]*(<span class="built_in">len</span>(floor)+<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(numCarpets+<span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numCarpets+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(floor)+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">                    <span class="comment"># 未使用地毯时，没被覆盖的白色砖块 即 地板上白色砖块的数目</span></span><br><span class="line">                    dp[i][j] = dp[i][j-<span class="number">1</span>] + <span class="built_in">int</span>(floor[j-<span class="number">1</span>])</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 使用地毯时，分2种情况讨论：</span></span><br><span class="line">                <span class="comment"># （1）第j块砖块没被覆盖时，没被覆盖的白色砖块 = 使用i条地毯覆盖长度为j-1的砖块时的最少白块数目+第j块是否为白块</span></span><br><span class="line">                <span class="comment"># （2）第j块砖块被覆盖时，没被覆盖的白色砖块 = 使用i-1条地毯覆盖长度为j-carpetLen的砖块</span></span><br><span class="line">                <span class="comment">#    （若j&lt;=carpetLen，则j块砖全部被覆盖，没被覆盖的白色砖块为0）</span></span><br><span class="line">                dp[i][j] = <span class="built_in">min</span>(</span><br><span class="line">                    dp[i][j-<span class="number">1</span>] + <span class="built_in">int</span>(floor[j-<span class="number">1</span>]),</span><br><span class="line">                    j &gt; carpetLen <span class="keyword">and</span> dp[i-<span class="number">1</span>][j-carpetLen] <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[numCarpets][<span class="built_in">len</span>(floor)]</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>【算法】动态规划</tag>
+      </tags>
+  </entry>
 </search>
