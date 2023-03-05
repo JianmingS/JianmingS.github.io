@@ -989,4 +989,27 @@
         <tag>【算法】动态规划</tag>
       </tags>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2022/12/04/Kubernetes%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h1 id="一、纯容器部署存在的问题"><a href="#一、纯容器部署存在的问题" class="headerlink" title="一、纯容器部署存在的问题"></a>一、纯容器部署存在的问题</h1><h2 id="1、随着容器数量越来越多-维护成本越来越高"><a href="#1、随着容器数量越来越多-维护成本越来越高" class="headerlink" title="1、随着容器数量越来越多,维护成本越来越高"></a>1、随着容器数量越来越多,维护成本越来越高</h2><p>各个容器部署在哪个服务器上, 使用的哪个端口</p>
+<p>现状:人工记录</p>
+<h2 id="2、多个服务器间的-容器互相调用规则-不便于维护"><a href="#2、多个服务器间的-容器互相调用规则-不便于维护" class="headerlink" title="2、多个服务器间的  容器互相调用规则  不便于维护"></a>2、多个服务器间的  容器互相调用规则  不便于维护</h2><p>服务器server1上的80端口容器  调用  服务器server2上的9001端口容器</p>
+<p>现状:人工记录</p>
+<h2 id="3、业务中断-无法做到-快速感知并自动切换到新服务"><a href="#3、业务中断-无法做到-快速感知并自动切换到新服务" class="headerlink" title="3、业务中断,无法做到  快速感知并自动切换到新服务"></a>3、业务中断,无法做到  快速感知并自动切换到新服务</h2><p>现状:用户反馈业务中断后感知,再由人工切换新服务</p>
+<h2 id="4、无法实现滚动升级保证业务的连续性"><a href="#4、无法实现滚动升级保证业务的连续性" class="headerlink" title="4、无法实现滚动升级保证业务的连续性"></a>4、无法实现滚动升级保证业务的连续性</h2><p>现状:人工发布版本,如有异常,人工回退版本</p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/02/18/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8Docker%20Sql%20Server/</url>
+    <content><![CDATA[<h2 id="运行Sql-Server-Docker"><a href="#运行Sql-Server-Docker" class="headerlink" title="运行Sql Server(Docker)"></a>运行Sql Server(Docker)</h2><p><a href="https://hub.docker.com/_/microsoft-mssql-server?tab=description">Docker Sql Server</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 拉取镜像</span></span><br><span class="line">docker pull mcr.microsoft.com/mssql/server:2017-latest</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行容器</span></span><br><span class="line">docker run -e &quot;ACCEPT_EULA=Y&quot; -e &quot;MSSQL_SA_PASSWORD=Password@001&quot; \</span><br><span class="line"> -p 1433:1433 --name sql1 --hostname sql1 \</span><br><span class="line"> -d \</span><br><span class="line"> mcr.microsoft.com/mssql/server:2017-latest</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入容器</span></span><br><span class="line">docker exec -it sql1 bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 验证可以进入数据库</span></span><br><span class="line">/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Password@001</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 创建数据库 TestDB</span><br><span class="line"><span class="keyword">CREATE</span> DATABASE TestDB</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line"># 查询所有数据库名称</span><br><span class="line"><span class="keyword">SELECT</span> Name <span class="keyword">from</span> sys.Databases</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载Sql-Server数据库管理工具"><a href="#下载Sql-Server数据库管理工具" class="headerlink" title="下载Sql Server数据库管理工具"></a>下载Sql Server数据库管理工具</h2><p><a href="https://learn.microsoft.com/zh-cn/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16">https://learn.microsoft.com/zh-cn/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16</a></p>
+<h2 id="连接调测"><a href="#连接调测" class="headerlink" title="连接调测"></a>连接调测</h2><img title="" src="file:///images/安装使用Docker%20Sql%20Server/2023-03-05%2018.36.48.png" alt="2023-03-05 18.36.48.png" data-align="inline">
+]]></content>
+  </entry>
 </search>
