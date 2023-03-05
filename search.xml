@@ -1002,20 +1002,8 @@
   </entry>
   <entry>
     <title>安装使用Docker Sql Server.md</title>
-    <url>/2023/02/18/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8Docker%20Sql%20Server/</url>
-    <content><![CDATA[<p>title: 安装使用Docker Sql Server.md<br>date: 2023-03-05 18:30:00<br>tags:</p>
-<ul>
-<li>【Docker】基础</li>
-</ul>
-<p>categories:</p>
-<ul>
-<li><p>Docker</p>
-</li>
-<li><p>Sql Server</p>
-</li>
-</ul>
-<hr>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="运行Sql-Server-Docker"><a href="#运行Sql-Server-Docker" class="headerlink" title="## 运行Sql Server(Docker)"></a>## 运行Sql Server(Docker)</h2><p><a href="https://hub.docker.com/_/microsoft-mssql-server?tab=description">Docker Sql Server</a></p>
+    <url>/2023/03/05/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8Docker%20Sql%20Server/</url>
+    <content><![CDATA[<h2 id="运行Sql-Server-Docker"><a href="#运行Sql-Server-Docker" class="headerlink" title="运行Sql Server(Docker)"></a>运行Sql Server(Docker)</h2><p><a href="https://hub.docker.com/_/microsoft-mssql-server?tab=description">Docker Sql Server</a></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 拉取镜像</span></span><br><span class="line">docker pull mcr.microsoft.com/mssql/server:2017-latest</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行容器</span></span><br><span class="line">docker run -e &quot;ACCEPT_EULA=Y&quot; -e &quot;MSSQL_SA_PASSWORD=Password@001&quot; \</span><br><span class="line"> -p 1433:1433 --name sql1 --hostname sql1 \</span><br><span class="line"> -d \</span><br><span class="line"> mcr.microsoft.com/mssql/server:2017-latest</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入容器</span></span><br><span class="line">docker exec -it sql1 bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 验证可以进入数据库</span></span><br><span class="line">/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Password@001</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 创建数据库 TestDB</span><br><span class="line"><span class="keyword">CREATE</span> DATABASE TestDB</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line"># 查询所有数据库名称</span><br><span class="line"><span class="keyword">SELECT</span> Name <span class="keyword">from</span> sys.Databases</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
@@ -1023,5 +1011,12 @@
 <h2 id="下载Sql-Server数据库管理工具"><a href="#下载Sql-Server数据库管理工具" class="headerlink" title="下载Sql Server数据库管理工具"></a>下载Sql Server数据库管理工具</h2><p><a href="https://learn.microsoft.com/zh-cn/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16">https://learn.microsoft.com/zh-cn/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16</a></p>
 <h2 id="连接调测"><a href="#连接调测" class="headerlink" title="连接调测"></a>连接调测</h2><img title="" src="file:///images/安装使用Docker%20Sql%20Server/2023-03-05%2018.36.48.png" alt="2023-03-05 18.36.48.png" data-align="inline">
 ]]></content>
+      <categories>
+        <category>Docker</category>
+        <category>Sql Server</category>
+      </categories>
+      <tags>
+        <tag>【Docker】基础</tag>
+      </tags>
   </entry>
 </search>
