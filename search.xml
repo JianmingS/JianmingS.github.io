@@ -998,7 +998,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 创建数据库 TestDB</span><br><span class="line"><span class="keyword">CREATE</span> DATABASE TestDB</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line"># 查询所有数据库名称</span><br><span class="line"><span class="keyword">SELECT</span> Name <span class="keyword">from</span> sys.Databases</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
 
 <h2 id="下载Sql-Server数据库管理工具"><a href="#下载Sql-Server数据库管理工具" class="headerlink" title="下载Sql Server数据库管理工具"></a>下载Sql Server数据库管理工具</h2><p><a href="https://learn.microsoft.com/zh-cn/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16">https://learn.microsoft.com/zh-cn/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16</a></p>
-<h2 id="连接调测"><a href="#连接调测" class="headerlink" title="连接调测"></a>连接调测</h2><p><img src="/Users/sjm/Projects/Blog/source/images/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8Docker%20Sql%20Server/2023-03-05%2018.36.48.png" alt="2023-03-05 18.36.48.png"></p>
+<h2 id="连接调测"><a href="#连接调测" class="headerlink" title="连接调测"></a>连接调测</h2><p><img src="/Users/sjm/Projects/Blog/source/images/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8Docker%20Sql%20Server/2023-03-05%2018.36.48.png" alt="loading-ag-2222"></p>
 ]]></content>
       <categories>
         <category>Docker</category>
