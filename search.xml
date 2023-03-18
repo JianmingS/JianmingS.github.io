@@ -1008,7 +1008,7 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>新安装Ubuntu(Server)基础配置</title>
     <url>/2023/03/18/%E6%96%B0%E5%AE%89%E8%A3%85Ubuntu(Server)%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h1 id="设置root账户密码"><a href="#设置root账户密码" class="headerlink" title="设置root账户密码"></a>设置root账户密码</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改root密码</span></span><br><span class="line">sudo passwd root</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 切换到root账户</span></span><br><span class="line">su root</span><br></pre></td></tr></table></figure>
 
@@ -1016,5 +1016,11 @@
 
 <h1 id="允许远程"><a href="#允许远程" class="headerlink" title="允许远程"></a>允许远程</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 PermitRootLogin的值 设置为 yes</span></span><br><span class="line">PermitRootLogin yes</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
   </entry>
 </search>
