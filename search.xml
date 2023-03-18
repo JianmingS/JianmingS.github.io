@@ -1014,7 +1014,9 @@
 
 <h1 id="查看ip"><a href="#查看ip" class="headerlink" title="查看ip"></a>查看ip</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装网络工具</span></span><br><span class="line">apt install net-tools</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看ip</span></span><br><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
 
-<h1 id="允许远程"><a href="#允许远程" class="headerlink" title="允许远程"></a>允许远程</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 PermitRootLogin的值 设置为 yes</span></span><br><span class="line">PermitRootLogin yes</span><br></pre></td></tr></table></figure>
+<h1 id="允许远程"><a href="#允许远程" class="headerlink" title="允许远程"></a>允许远程</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将 PermitRootLogin的值 设置为 yes</span></span><br><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">PermitRootLogin yes</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启ssh</span></span><br><span class="line">systemctl restart ssh</span><br></pre></td></tr></table></figure>
+
+
 ]]></content>
       <categories>
         <category>Linux</category>
